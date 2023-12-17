@@ -310,7 +310,8 @@
 		<button onclick="searchAndHighlight()">Search</button>
 		<select id="searchResults">
 		</select>
-		<input type="checkbox" style="color:white" onclick="makePreviewBox()" id="prvwchkbx"><label for="prvwchkbx" style="color: white;">Preview Box</label></input>
+		<input type="checkbox" style="color:white" onclick="makePreviewBox()" id="prvwchkbx"><label for="prvwchkbx" style="color: white;">Notes</label></input>
+		<button id="prewviewnotes">Check notes</button>
 	</span>
 	<div id="tableContainer">
 		<!-- 		<input type="search" src="chtsht" /> -->
@@ -630,6 +631,11 @@ H1
 							box.style.display = "block";
 			let fut = document.getElementsByTagName("header")[0].appendChild(box);
 }
+	function checkNotes(){
+		let looker = document.createElement("aside");
+		let lookit = document.getElementsByTagName("textarea")[0];
+		looker.innerHtml = lookit.textContent;
+	}
 	
 	function copyaTag(tag) {
 		const textarea = document.createElement("textarea");
