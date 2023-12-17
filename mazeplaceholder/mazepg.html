@@ -111,11 +111,7 @@
 	</div>
 </div>
 </div>
-<div id="maze-container">
-	<div id="grid" class="grid-container">
-		<!-- JavaScript will fill in the maze -->
-	</div>
-		<span id="arrow-buttons" style="text-align: center; margin-top: 20px;">
+			<span id="arrow-buttons" style="text-align: center; margin-top: 20px;">
     <button onclick="simulateKeyPress('ArrowUp')">↑</button><br>
     <button onclick="simulateKeyPress('ArrowLeft')">←</button>
     <button onclick="simulateKeyPress('ArrowRight')">→</button><br>
@@ -126,6 +122,11 @@
         window.dispatchEvent(event);
     }</script>
 </span>
+<div id="maze-container">
+	<div id="grid" class="grid-container">
+		<!-- JavaScript will fill in the maze -->
+	</div>
+
 	<script>
 		let rows = parseInt(document.getElementById("heightIn").value);
 		let columns = parseInt(document.getElementById("widthIn").value);
