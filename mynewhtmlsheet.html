@@ -6,286 +6,291 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 </head>
-<style>* {
-	box-sizing: border-box;
-}
+<style>
+	* {
+		box-sizing: border-box;
+	}
 
-:root{
+	:root {}
+
+	#searchInput {
+		padding: 0.1%;
+		margin-bottom: 0.1%;
+	}
+
+	#tableContainer {
+		max-height: 80vh;
+		/* Adjust the maximum height as needed */
+		min-width: 90vw;
+		margin-left: 5vw;
+		margin-right: 5vw;
+		padding-right: 1%;
+	}
+
+	select {
+		margin-top: 2.2vh;
+		margin-left: 5vw;
+		min-width: 30vw;
+	}
+
+	header h1,
+	header p {
+		margin: 0px auto;
+		text-align: center;
+		background-color: transparent;
+		padding: 2%;
+		padding-bottom: 0.5%;
+	}
+
+	button {
+		background-color: rgba(100, 100, 100, 2%);
+		border-collapse: collapse;
+		color: #9510f5;
+		align-content: right;
+		position: relative;
+		right: 0;
+	}
+
+	body>span < h1 span {
+		text-decoration-style: normal;
+	}
+
+	#ftrreturntop {
+		position: fixed;
+		right: 2%;
+		font-size: 0.5rem;
+	}
+
+	footer a {
+		color: green;
+		margin-left: 0;
+		align-self: left;
+	}
+
+	footer a:visited {
+		color: snow;
+	}
+
+	footer a:hover {
+		color: red;
+	}
+
+	footer a:active {
+		color: snow;
+	}
+
+	body>span>h1 {
+		margin: 2% auto;
+		text-align: center;
+		margin-bottom: -1%;
+		color: #551919;
+		font-family: monospace;
+		/* "sans-serif", "comic-sans";*/
+		font-size: 1rem;
+		letter-spacing: 1vmin;
+		word-spacing: auto-flow;
+		text-decoration: underline overline;
+		text-decoration-skip: spaces;
+		font-weight: 900;
+	}
+
+	body>span>p {
+		margin: 1.5% auto;
+		text-align: center;
+		color: #50009a;
+	}
+
+	header p {
+		vertical-align: middle;
+		display: flex;
+		margin-top: -2.5%;
+		justify-content: stretch;
+	}
+
+	nav>a:hover {
+		border-radius: 25%;
+		border: #003000 double medium;
+		padding: 0.3%;
+		text-shadow: 0.5px 0.5px 5px black;
+		margin: 2%;
+		background-image: radial-gradient(black, #003000, #950010);
+		float: auto;
+		box-sizing: content-box;
+	}
+
+	#searchInput {
+		border: green double thick;
+		border-bottom: darkgreen inset thick;
+		border-right: darkgreen groove thick;
+		border-collapse: collapse;
+		margin-left: 5vw;
+		margin-bottom: 1%;
+	}
+
+	tr {
+		transition: transform 0.2s ease;
+		background-color: transparent;
+		transform: scale(0.95);
+	}
+
+	tr:hover {
+		background-color: transparent;
+	}
+
+	#thRow:hover {
+		transition: none;
+	}
+
+	body {
+		font-family: "Arial", sans-serif;
+		background-origin: 0.5 0.5;
+		background-color: #003000;
+		background-size: stretch;
+		color: #000;
+		margin: 0px auto;
+		padding: 5% auto;
+		max-width: 100vw;
+		box-sizing: content-box;
+	}
+
+	header {
+		background-color: #80410;
+		/* image */
+		padding: 1px auto;
+		align-content: center;
+		color: #200050;
+		text-align: center;
+		display: inline-flex;
+		margin-bottom: 1%;
+		width: 100%;
+		position: static;
+		margin-top: 5%;
+	}
+
+	nav {
+		background-color: rgba(0, 25, 0, 75%);
+		text-align: center;
+		display: inline-block;
+		position: fixed;
+		top: 0px;
+		left: 0px;
+		padding-top: 1%;
+		width: 100vw;
+		max-width: 100vw;
+		height: content;
+		max-height: content;
+		padding: 1% auto-flow;
+		z-index: 1;
+	}
+
+	nav a {
+		margin: 0 1rem;
+		text-decoration: underline;
+		color: #950010;
+		font-weight: bold;
+	}
+
+	table {
+		width: 100%;
+		border-collapse: collapse;
+		margin-top: 1em;
+		max-width: 90vw;
+	}
+
+	td {
+		height: 1rem;
+		min-height: 1rem;
+		max-width: fit-content;
+		border: none rgba(1, 1, 1, 50%);
+		color: white;
+		background-image: radial-gradient(rgba(0, 0, 0, 50%) 75%, rgba(50, 75, 0, 60%));
+		text-align: center;
+		line-break: none;
+		text-overflow: hidden;
+		font-size: 1rem;
+		display: inline;
+		column-span: all;
+		word-wrap: not-allowed;
+	}
+
+	th {
+		background-color: #deb887;
+		/* Burlywood */
+	}
+
+	footer:hover {
+		opacity: 100%;
+	}
+
+	footer {
+		opacity: 10%;
+		text-align: center;
+		background-color: #400098;
+		color: #fff;
+		margin-top: 2%;
+		max-height: 1rem;
+		position: fixed;
+		display: inline;
+		vertical-align: bottom;
+		bottom: 0%;
+		margin-top: 10px;
+		width: 100vw;
+		align-content: start;
+		z-index: 1;
+	}
+
+	.tagfield {
+		font-weight: 700;
+		height: 100%;
+		text-shadow: 1px 0px 5px black;
+		color: #fc0000;
+		max-width: fit-content;
+		word-wrap: wrap;
+		display: inline-flex;
+	}
+
+	cite {
+		font-size: 0.5rem;
+	}
+
+	pre {
+		text-align: center;
+		word-wrap: wrap;
+		column-span: all;
+		word-break: always;
+	}
+
+	p a {
+		color: snow;
+	}
+
+	p a:visited {
+		color: snow;
+	}
+
+	p a:hover {
+		color: green;
+	}
+
+	p a:hover+p a:visited {
+		red;
+	}
+
+	#prvwchkbx {
+		color: white;
+	}
 	
-}
+	#tableOtags {
+		max-width: 100vw;
+		vertical-align: top;
+	}
 
-        #searchInput {
-            padding: 0.1%;
-            margin-bottom: 0.1%;
-        }
+	button:hover {
+		transition-duration: 0.321s;
+		transform: rotatex(360deg);
+	}
+</style>
 
-        #tableContainer {
-            max-height: 80vh; /* Adjust the maximum height as needed */
-									min-width: 90vw;
-									margin-left: 5vw;
-									margin-right: 5vw;
-									padding-right: 1%;
-        }
-
-
-
-select {
-	margin-top: 2.2vh;
-	margin-left: 5vw;
-	min-width: 30vw;
-}
-
-
-header h1, header p{
-	margin: 0px auto;
-	text-align: center;
-	background-color: transparent;
-	padding: 2%;
-	padding-bottom: 0.5%;
-}
-
-button {
-	background-color: rgba(100, 100, 100, 2%);
-	border-collapse: collapse;
-	color: #9510f5;
-	align-content: right;
-	position: relative;
-	right: 0;
-}
-
-body > span < h1 span {
-	text-decoration-style: normal;
-}
-
-#ftrreturntop {
-	position: fixed;
-	right: 2%;
-	font-size: 0.5rem;
-}
-
-footer a {
-	color: green;
-	margin-left: 0;
-	align-self: left;
-}
-
-footer a:visited{
-	color: snow;
-}
-
-footer a:hover{
-	color: red;
-}
-
-footer a:active{
-	color: snow;
-}
-
-body > span > h1 {
-	margin: 2% auto;
-	text-align: center;
-	margin-bottom: -1%;
-	color: #551919;
-	font-family: monospace; /* "sans-serif", "comic-sans";*/
-	font-size: 1rem;
-	letter-spacing: 1vmin;
-	word-spacing: auto-flow;
-	text-decoration: underline overline;
-	text-decoration-skip: spaces;
-	font-weight: 900;
-}
-
-body > span > p {
-	margin: 1.5% auto;
-	text-align: center;
-	color: #50009a;
-	
-}
-
-header p {
-	vertical-align: middle;
-	display: flex;
-	margin-top: -2.5%;
-	justify-content: stretch;
-}
-
-nav > a:hover {
-	border-radius: 25%;
-	border: #003000 double medium;
-	padding: 0.3%;
-	text-shadow: 0.5px 0.5px 5px black;
-	margin: 2%;
-	background-image: radial-gradient(black, #003000, #950010);
-	float: auto;
-	box-sizing: content-box;
-}
-
-#searchInput {
-	border: green double thick;
-	border-bottom: darkgreen inset thick;
-	border-right: darkgreen groove thick;
-	border-collapse: collapse;
-	margin-left: 5vw;
-	margin-bottom: 1%;
-}
-
-tr {
-	transition: transform 0.2s ease;
-	background-color: transparent;
- transform: scale(0.95);
-}
-
-tr:hover {
-	background-color: transparent;
-}
-
-#thRow:hover {
-	transition: none;
-}
-
-body {
-	font-family: "Arial", sans-serif;
-	background-origin: 0.5 0.5;
-	background-color: #003000;
-	background-size: stretch;
-	color: #000;
-	margin: 0px auto;
-	padding: 5% auto;
-	max-width: 100vw;
-	box-sizing: content-box;
-}
-
-header {
-	background-color: #80410; /* image */
-	padding: 1px auto;
-	align-content: center;
-	color: #200050;
-	text-align: center;
-	display: inline-flex;
-	margin-bottom: 1%;
-	width: 100%;
-	position: static;
-	margin-top: 5%;
-}
-
-nav{
-	background-color: rgba(0, 25, 0, 75%);
-	text-align: center;
-	display: inline-block;
-	position: fixed;
-	top: 0px;
-	left: 0px;
-	padding-top: 1%;
-	width:100vw;
-	max-width: 100vw;
-	height: content;
-	max-height: content;
-	
-	padding: 1% auto-flow;
-	z-index: 1;
-}
-
-nav a {
-	margin: 0 1rem;
-	text-decoration: underline;
-	color: #950010; 
-	font-weight: bold;
-}
-
-table {
-	width: 100%;
-	border-collapse: collapse;
-	margin-top: 1em;
-	max-width: 90vw;
-}
-
-td {
-	height: 1rem;
-	min-height: 1rem;
- max-width: fit-content;
-	border:  none rgba(1, 1, 1, 50%);
-	color: white;
- background-image: radial-gradient(rgba(0, 0, 0, 50%) 75%, rgba(50, 75, 0, 60%));
-	text-align: center;
-	line-break: none;
-	text-overflow: hidden;
-	font-size: 1rem;
-	display: inline;
-	column-span: all;
-	word-wrap: not-allowed;
-}
-
-th {
-	background-color: #deb887; /* Burlywood */
-}
-
-footer:hover{
-opacity: 100%;
-}
-
-footer {
-	opacity: 10%;
-	text-align: center;
-	background-color: #400098;
-	color: #fff;
-	margin-top: 2%;
-	max-height: 1rem;
-	position: fixed;
-	display: inline;
-	vertical-align: bottom;
-	bottom: 0%;
-	margin-top: 10px;
-	width: 100vw;
-	align-content: start;
-	z-index: 1;
-}
-
-.tagfield {
-	font-weight: 700;
-	height: 100%;
-	text-shadow: 1px 0px 5px black;
-	color: #fc0000;
-	max-width: fit-content;
-	word-wrap: wrap;
-	display: inline-flex;
-}
-
-cite {
-	font-size: 0.5rem;
-}
-
-pre {
-	text-align: center;
-	word-wrap: wrap;
-	column-span: all;
-	word-break: always;
-}
-
-p a{
-	color: snow;
-}
-
-p a:visited{
-	color: snow;
-}
-
-p a:hover{
-	color: green;
-}
-
-p a:hover + p a:visited{
-	red;
-}
-
-#tableOtags {
-	max-width:100vw;
-	vertical-align: top;
-}
-
-button:hover{
-	transition-duration: 0.321s;
-	transform: rotatex(360deg);
-	}</style>
 <body>
 	<header>
 		<nav name="navi">
@@ -294,16 +299,17 @@ button:hover{
 			<a href="#css" onclick="navtocss">CSS Reference</a>
 			<a href="#javascript">JavaScript Reference</a>
 			<a href="#resume">Resume</a>
-			<span name="titlebar">
-				<input type="text" id="searchInput" placeholder="Type to search">
-				<button onclick="searchAndHighlight()">Search</button>
-			</span>
-			<select id="searchResults">
-			</select>
+
 		</nav>
 
 	</header>
-
+	<span name="searchbar" id="searchinputs">
+		<input type="text" id="searchInput" placeholder="Type to search">
+		<button onclick="searchAndHighlight()">Search</button>
+		<select id="searchResults">
+		</select>
+		<input type="checkbox" style="color:white" onclick="makePreviewBox()" id="prvwchkbx"><label for="prvwchkbx" style="color: white;">Preview Box</label></input>
+	</span>
 	<div id="tableContainer">
 		<!-- 		<input type="search" src="chtsht" /> -->
 
@@ -314,6 +320,7 @@ button:hover{
 
 		<iframe>
 			<script>
+
 				function navtocss() {
 					createTable(seeeses);
 				}
@@ -598,6 +605,7 @@ H1
 { clear: right; }
 .foo
 { clear: none; }`
+				
 			</script>
 
 		</iframe>
@@ -607,231 +615,223 @@ H1
 	<a id="ftrreturntop" href="">Return to top</a>
 	<span id="ftrcopyspan">© 2023 Name here</span>
 </footer>
-<script>function copyaTag(tag) {
-	const textarea = document.createElement("textarea");
-	let tagslist = document.getElementsByClassName("tagfield");
-	tagslist.forEach((tag) => {});
-	textarea.value = tagslist[0];
-	document.body.appendChild(textarea);
-	textarea.select();
-	document.execCommand("copy");
-	document.body.removeChild(textarea);
-	alert("Tag copied to clipboard: " + tag);
+<script>
+					function makePreviewBox() {
+						let rb = document.getElementsByTagName("textarea")[0];
+						if (rb){
+			let fut = document.getElementsByTagName("header")[0].removeChild(rb);
+							return};
+	let box = document.createElement("textarea");
+	box.style.width = "25vw";
+						box.style.height = "10vh";
+						box.style.backgroundColour = "white";
+							box.style.display = "block";
+			let fut = document.getElementsByTagName("header")[0].appendChild(box);
 }
+	
+	function copyaTag(tag) {
+		const textarea = document.createElement("textarea");
+		let tagslist = document.getElementsByClassName("tagfield");
+		tagslist.forEach((tag) => {});
+		textarea.value = tagslist[0];
+		document.body.appendChild(textarea);
+		textarea.select();
+		document.execCommand("copy");
+		document.body.removeChild(textarea);
+		alert("Tag copied to clipboard: " + tag);
+	}
 
-function calculateMaxScale() {
-	const row = document.querySelector("tr");
-	const rowRect = row.getBoundingClientRect();
-	const viewportWidth = window.innerWidth;
-	const viewportHeight = window.innerHeight;
+	function calculateMaxScale() {
+		const row = document.querySelector("tr");
+		const rowRect = row.getBoundingClientRect();
+		const viewportWidth = window.innerWidth;
+		const viewportHeight = window.innerHeight;
+		const maxWidthScale = viewportWidth / rowRect.width;
+		const maxHeightScale = maxWidthScale * 2;
+		return maxWidthScale;
+	}
 
-	const maxWidthScale = viewportWidth / rowRect.width;
-	const maxHeightScale = maxWidthScale * 2;
+	function calculateMaxHeightScale() {
+		const row = document.querySelector("tr");
+		const rowRect = row.getBoundingClientRect();
+		const viewportWidth = window.innerWidth;
+		const viewportHeight = window.innerHeight;
+		const maxHeightScale = viewportHeight / rowRect.height;
+		return maxHeightScale;
+	}
 
-	return maxWidthScale;
-}
-
-function calculateMaxHeightScale() {
-	const row = document.querySelector("tr");
-	const rowRect = row.getBoundingClientRect();
-	const viewportWidth = window.innerWidth;
-	const viewportHeight = window.innerHeight;
-	const maxHeightScale = viewportHeight / rowRect.height;
-	return maxHeightScale;
-}
-
-function calculateMaxWidthScale() {
-	const row = document.querySelector("tr");
-	const rowRect = row.getBoundingClientRect();
-	const viewportWidth = window.innerWidth;
-	const viewportHeight = window.innerHeight;
-	const maxWidthScale = viewportWidth / rowRect.width;
-	return maxWidthScale;
-}
-
-document.addEventListener("DOMContentLoaded", function () {
-	const rows = document.querySelectorAll("tr");
-
-	rows.forEach((row) => {
-		row.addEventListener("mouseenter", function () {
-			const maxYScale = calculateMaxHeightScale() / 10;
-			const maxXScale = calculateMaxWidthScale();
-			this.style.transition = "transform 0.2s ease-in-out";
-			this.style.transform = "scale(1)";
-		});
-
-		row.addEventListener("mouseleave", function () {
-			this.style.transform = "scale(0.95)";
+	function calculateMaxWidthScale() {
+		const row = document.querySelector("tr");
+		const rowRect = row.getBoundingClientRect();
+		const viewportWidth = window.innerWidth;
+		const viewportHeight = window.innerHeight;
+		const maxWidthScale = viewportWidth / rowRect.width;
+		return maxWidthScale;
+	}
+	document.addEventListener("DOMContentLoaded", function() {
+		const rows = document.querySelectorAll("tr");
+		rows.forEach((row) => {
+			row.addEventListener("mouseenter", function() {
+				const maxYScale = calculateMaxHeightScale() / 10;
+				const maxXScale = calculateMaxWidthScale();
+				this.style.transition = "transform 0.2s ease-in-out";
+				this.style.transform = "scale(1)";
+			});
+			row.addEventListener("mouseleave", function() {
+				this.style.transform = "scale(0.95)";
+			});
 		});
 	});
-});
 
-function createTable(text) {
-	// Split the text into lines
-	const lines = text.trim().split("\n");
-
-	// Create a table element
-	const table = document.createElement("table");
-	const tbody = document.createElement("tbody");
-	table.appendChild(tbody);
-	let r = 0;
-	// Loop through each line to create table rows
-	for (let i = 0; i < lines.length; i++) {
-		const line = lines[i].trim();
-		r++;
-		// Skip empty lines
-		if (line === "") {
-			const trd = document.createElement("tr");
-			trd.style.height = "1%";
-			trd.align = "center";
-			trd.colspan = "all";
-			const sectionCell = document.createElement("td");
-			const sectionCella = document.createElement("td");
-			sectionCella.textContent = lines[i + 1];
-			i += 2;
-			r--;
-			tbody.appendChild(trd);
-			sectionCella.colspan = 2;
-			sectionCell.colspan = 2;
-			sectionCella.align = "right";
-			sectionCella.rowspan = 2;
-			sectionCell.style.display = "inline-flex";
-			trd.appendChild(sectionCella);
-			trd.appendChild(sectionCell);
-			sectionCella.style.backgroundColor = "#9510f5";
-			sectionCella.style.borderRadius = "100%";
-			sectionCell.style.margin = "2em";
-			sectionCella.style.margin = "2em";
-			trd.style.padding = "5rem";
-
-			continue;
-		}
-
-		// Create a table row
-		const tr = document.createElement("tr");
-		tr.id = i;
-		// Create the first cell with the tag
-		const tagCell = document.createElement("td");
-		tagCell.textContent = line;
-		tagCell.style.maxWidth = "fit-content";
-		tagCell.style.padding = "0%";
-		if (line == "Section") {
-			tr.name = i;
-			tagCell.id = line;
-		}
-		const emptyCell = document.createElement("td");
-		emptyCell.textContent = r;
-		emptyCell.style.paddingLeft = "1%";
-		emptyCell.style.paddingRight = "2%";
-		tr.appendChild(emptyCell);
-		tr.appendChild(tagCell);
-
-		// Create the second cell with the line or lines directly below
-		const contentCell = document.createElement("td");
-		contentCell.textContent = lines[i + 1]?.trim() || "";
-		contentCell.style.paddingRight = "1%";
-		contentCell.style.paddingLeft = "10%";
-		contentCell.align = "right";
-		contentCell.colspan = 3;
-		tr.appendChild(contentCell);
-
-		// Create the fourth cell with the copy tag button
-		const buttonCell = document.createElement("td");
-		const copyButton = document.createElement("button");
-		copyButton.textContent = "Copy Tag";
-		copyButton.onclick = function copyTag(contentCell) {
-			const textarea = document.createElement("textarea");
-			let tagslist = document.getElementsByClassName("tagfield");
-			textarea.value = line;
-			document.body.appendChild(textarea);
-			textarea.select();
-			document.execCommand("copy");
-			document.body.removeChild(textarea);
-			alert("Tag copied to clipboard: " + line);
-			console.log("Copying tag: " + line);
-		};
-		buttonCell.appendChild(copyButton);
-
-		tr.appendChild(buttonCell);
-
-		// Append the row to the tbody
-		tbody.appendChild(tr);
-
-		// Skip the next line as it has been used for the current row
-		i++;
-	}
-	table.id = "tableOtags";
-
-	// Append the table to the body
-	document.getElementById("chtsht").appendChild(table); // Append the table to the body and set the ID
-	table.id = "tableOtags";
-}
-
-function searchAndHighlight() {
-	var searchQuery = document.getElementById("searchInput").value.toLowerCase();
-	var table = document.getElementById("tableOtags");
-	var rows = table.getElementsByTagName("tr");
-	var searchResults = document.getElementById("searchResults");
-	searchResults.innerHTML = "";
-
-	// Reset table styles
-
-	for (var i = 0; i < rows.length; i++) {
-		var cells = rows[i].getElementsByTagName("td");
-
-		for (var j = 0; j < cells.length; j++) {
-			var cellText = cells[j].textContent.toLowerCase();
-			rows[i].id = i;
-			if (cellText.includes(searchQuery)) {
-				// Highlight the cell
-				cells[j].style.backgroundColor = "yellow";
-
-				// Create a result entry
-				var resultEntry = document.createElement("option");
-				resultEntry.textContent = i + 1;
-
-				searchResults.appendChild(resultEntry);
+	function createTable(text) {
+		// Split the text into lines
+		const lines = text.trim().split("\n");
+		// Create a table element
+		const table = document.createElement("table");
+		const tbody = document.createElement("tbody");
+		table.appendChild(tbody);
+		let r = 0;
+		// Loop through each line to create table rows
+		for (let i = 0; i < lines.length; i++) {
+			const line = lines[i].trim();
+			r++;
+			// Skip empty lines
+			if (line === "") {
+				const trd = document.createElement("tr");
+				trd.style.height = "1%";
+				trd.align = "center";
+				trd.colspan = "all";
+				const sectionCell = document.createElement("td");
+				const sectionCella = document.createElement("td");
+				sectionCella.textContent = lines[i + 1];
+				i += 2;
+				r--;
+				tbody.appendChild(trd);
+				sectionCella.colspan = 2;
+				sectionCell.colspan = 2;
+				sectionCella.align = "right";
+				sectionCella.rowspan = 2;
+				sectionCell.style.display = "inline-flex";
+				trd.appendChild(sectionCella);
+				trd.appendChild(sectionCell);
+				sectionCella.style.backgroundColor = "#9510f5";
+				sectionCella.style.borderRadius = "100%";
+				sectionCell.style.margin = "2em";
+				sectionCella.style.margin = "2em";
+				trd.style.padding = "5rem";
+				continue;
 			}
-		}
-		scrolltorow(rows);
-	}
-}
-
-function scrolltorow(rows) {
-	// Get references to the select element and the table
-	const mySelect = document.getElementById("searchResults");
-	const myTable = document.getElementById("tableOtags");
-
-	// Attach an event listener to the select element
-	mySelect.addEventListener("click", function () {
-		// Get the selected option value
-		const selectedValue = mySelect.value;
-
-		// Find the corresponding row in the table
-		let rowIndex = Array.from(rows).findIndex((row) =>
-			row.textContent.includes(selectedValue)
-		);
-
-		// Scroll to or highlight the selected row
-		if (rowIndex !== -1) {
-			if (rowIndex <= 4) {
-				rowIndex = rowIndex + 3;
+			// Create a table row
+			const tr = document.createElement("tr");
+			tr.id = i;
+			// Create the first cell with the tag
+			const tagCell = document.createElement("td");
+			tagCell.textContent = line;
+			tagCell.style.maxWidth = "fit-content";
+			tagCell.style.padding = "0%";
+			if (line == "Section") {
+				tr.name = i;
+				tagCell.id = line;
 			}
-			rows[rowIndex - 3].scrollIntoView();
-			let n = document.getElementsByTagName("td");
-			resetTableStyles();
-			rows[rowIndex].style.backgroundColor = "yellow";
+			const emptyCell = document.createElement("td");
+			emptyCell.textContent = r;
+			emptyCell.style.paddingLeft = "1%";
+			emptyCell.style.paddingRight = "2%";
+			tr.appendChild(emptyCell);
+			tr.appendChild(tagCell);
+			// Create the second cell with the line or lines directly below
+			const contentCell = document.createElement("td");
+			contentCell.textContent = lines[i + 1]?.trim() || "";
+			contentCell.style.paddingRight = "1%";
+			contentCell.style.paddingLeft = "10%";
+			contentCell.align = "right";
+			contentCell.colspan = 3;
+			tr.appendChild(contentCell);
+			// Create the fourth cell with the copy tag button
+			const buttonCell = document.createElement("td");
+			const copyButton = document.createElement("button");
+			copyButton.textContent = "Copy Tag";
+			copyButton.onclick = function copyTag(contentCell) {
+				const textarea = document.createElement("textarea");
+				let tagslist = document.getElementsByClassName("tagfield");
+				textarea.value = line;
+				document.body.appendChild(textarea);
+				textarea.select();
+				document.execCommand("copy");
+				document.body.removeChild(textarea);
+				alert("Tag copied to clipboard: " + line);
+				console.log("Copying tag: " + line);
+			};
+			buttonCell.appendChild(copyButton);
+			tr.appendChild(buttonCell);
+			// Append the row to the tbody
+			tbody.appendChild(tr);
+			// Skip the next line as it has been used for the current row
+			i++;
 		}
-	});
-}
-
-function resetTableStyles() {
-	let n = document.getElementsByTagName("td");
-	for (let c = 0; c < n.length; c++) {
-		n[c].style.backgroundColor = "transparent";
+		table.id = "tableOtags";
+		// Append the table to the body
+		document.getElementById("chtsht").appendChild(table); // Append the table to the body and set the ID
+		table.id = "tableOtags";
 	}
-}
-let text = `Tag
+
+	function searchAndHighlight() {
+		var searchQuery = document.getElementById("searchInput").value.toLowerCase();
+		var table = document.getElementById("tableOtags");
+		var rows = table.getElementsByTagName("tr");
+		var searchResults = document.getElementById("searchResults");
+		searchResults.innerHTML = "";
+		// Reset table styles
+		for (var i = 0; i < rows.length; i++) {
+			var cells = rows[i].getElementsByTagName("td");
+			for (var j = 0; j < cells.length; j++) {
+				var cellText = cells[j].textContent.toLowerCase();
+				rows[i].id = i;
+				if (cellText.includes(searchQuery)) {
+					// Highlight the cell
+					cells[j].style.backgroundColor = "yellow";
+					// Create a result entry
+					var resultEntry = document.createElement("option");
+					resultEntry.textContent = i + 1;
+					searchResults.appendChild(resultEntry);
+				}
+			}
+			scrolltorow(rows);
+		}
+	}
+
+	function scrolltorow(rows) {
+		// Get references to the select element and the table
+		const mySelect = document.getElementById("searchResults");
+		const myTable = document.getElementById("tableOtags");
+		// Attach an event listener to the select element
+		mySelect.addEventListener("click", function() {
+			// Get the selected option value
+			const selectedValue = mySelect.value;
+			// Find the corresponding row in the table
+			let rowIndex = Array.from(rows).findIndex((row) =>
+				row.textContent.includes(selectedValue)
+			);
+			// Scroll to or highlight the selected row
+			if (rowIndex !== -1) {
+				if (rowIndex <= 4) {
+					rowIndex = rowIndex + 3;
+				}
+				rows[rowIndex - 3].scrollIntoView();
+				let n = document.getElementsByTagName("td");
+				resetTableStyles();
+				rows[rowIndex].style.backgroundColor = "yellow";
+			}
+		});
+	}
+
+	function resetTableStyles() {
+		let n = document.getElementsByTagName("td");
+		for (let c = 0; c < n.length; c++) {
+			n[c].style.backgroundColor = "transparent";
+		}
+	}
+	let text = `Tag
 Description
 
 Basic Tags
@@ -1177,6 +1177,7 @@ HTML5
 <input type="color" name=?>
  Sets a single-line text box for picking a color 
 `;
-createTable(text);
-	</script>
+	createTable(text);
+</script>
+
 </html>
