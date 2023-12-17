@@ -1,4 +1,5 @@
-<html><style>
+<html>
+<style>
 	* {
 		box-sizing: border-box;
 		margin: 0px;
@@ -17,21 +18,25 @@
 		overflow: contain;
 	}
 
-	#arrow-buttons{
-		display: inline;
+	#arrow-buttons {
+		display: inline-flex;
 		vertical-align: bottom;
-		width: 75vw;
-		height: 7.5vh;
-		margin: 0px auto;
+		justify-content: space-around;
+		align-content: right;
+		width: 75%;
+		margin: 0px;
 	}
 
-	#arrow-button > button {
-		margin: 0px 20%;
-		width: 10vw;
-		display: relative;
+	#arrow-buttons>button {
+		margin-right: 2%;
+		width: 25%;
+		display: block;
+		direction: ltr;
 	}
-
 	
+	#arrow-buttons > button:nth-child(1){
+		margin-left: 5%;
+	}
 
 	#menu-bar {
 		width: 10vw;
@@ -111,16 +116,19 @@
 	</div>
 </div>
 </div>
-			<span id="arrow-buttons" style="text-align: center; margin-top: 20px;">
-    <button onclick="simulateKeyPress('ArrowUp')">↑</button><br>
-    <button onclick="simulateKeyPress('ArrowLeft')">←</button>
-    <button onclick="simulateKeyPress('ArrowRight')">→</button><br>
-    <button onclick="simulateKeyPress('ArrowDown')">↓</button>
-		<script>
-			function simulateKeyPress(key) {
-        const event = new KeyboardEvent('keydown', { key });
-        window.dispatchEvent(event);
-    }</script>
+<span id="arrow-buttons" style="text-align: center;">
+	<button onclick="simulateKeyPress('ArrowUp')">↑</button>
+	<button onclick="simulateKeyPress('ArrowLeft')">←</button>
+	<button onclick="simulateKeyPress('ArrowRight')">→</button>
+	<button onclick="simulateKeyPress('ArrowDown')">↓</button>
+	<script>
+		function simulateKeyPress(key) {
+			const event = new KeyboardEvent('keydown', {
+				key
+			});
+			window.dispatchEvent(event);
+		}
+	</script>
 </span>
 <div id="maze-container">
 	<div id="grid" class="grid-container">
@@ -371,63 +379,51 @@
 			tooltip2.style.display = "none";
 		});
 
-
-  function arrivedAtDestination(newX, newY) {
-    const ccell = mazecells[newX][newY];
-    const goBack = document.getElementById("goBackInput");
-
-    if (goBack.checked) {
-      ccell.style.color = "green";
-    } else {
-      const wc = getWallColour();
-      ccell.style.backgroundColor = wc;
-
-      const widthInput = document.getElementById("widthIn");
-      const heightInput = document.getElementById("heightIn");
-
-      if (isValidOdd(heightInput.value * 1.25 - ((heightInput.value * 1.25) % 2))) {
-        heightInput.value = heightInput.value * 1.25 - ((heightInput.value * 1.25) % 2);
-      } else {
-        heightInput.value = heightInput.value * 1.25 - ((heightInput.value * 1.25) % 2) + 1;
-      }
-
-      if (isValidOdd(widthInput.value * 1.25 - ((widthInput.value * 1.25) % 2))) {
-        widthInput.value = widthInput.value * 1.25 - ((widthInput.value * 1.25) % 2);
-      } else {
-        widthInput.value = widthInput.value * 1.25 - ((widthInput.value * 1.25) % 2) + 1;
-      }
-
-      let starts = document.getElementsByClassName("grid-item start-cell");
-      for (let i = 0; i < starts.length; i++) {
-        starts[i].classList.remove("start-cell");
-      }
-
-      // Remove the player and end cell
-      mazecells[currentX][currentY].style.backgroundColor = "";
-      mazecells[currentX][currentY].classList.remove("start-cell");
-
-      // Regenerate the maze
-      regenerateMaze();
-
-      // Set new destination and start positions
-      const newStartX = rows - 2;
-      const newStartY = columns - 2;
-      const newEndX = 1;
-      const newEndY = 1;
-
-      mazecells[newStartX][newStartY].classList.remove("end-cell");
-      mazecells[newStartX][newStartY].classList.add("start-cell");
-
-      mazecells[newEndX][newEndY].classList.remove("wall");
-      mazecells[newEndX][newEndY].classList.remove("end-cell");
-      mazecells[newEndX][newEndY].classList.add("start-cell");
-
-      mazecells[newEndX][newEndY].style.backgroundColor = getPlayerColour();
-      currentX = newEndX;
-      currentY = newEndY;
-      mazecells[1][1].style.backgroundColor = "orange";
-    }
-  }
+		function arrivedAtDestination(newX, newY) {
+			const ccell = mazecells[newX][newY];
+			const goBack = document.getElementById("goBackInput");
+			if (goBack.checked) {
+				ccell.style.color = "green";
+			} else {
+				const wc = getWallColour();
+				ccell.style.backgroundColor = wc;
+				const widthInput = document.getElementById("widthIn");
+				const heightInput = document.getElementById("heightIn");
+				if (isValidOdd(heightInput.value * 1.25 - ((heightInput.value * 1.25) % 2))) {
+					heightInput.value = heightInput.value * 1.25 - ((heightInput.value * 1.25) % 2);
+				} else {
+					heightInput.value = heightInput.value * 1.25 - ((heightInput.value * 1.25) % 2) + 1;
+				}
+				if (isValidOdd(widthInput.value * 1.25 - ((widthInput.value * 1.25) % 2))) {
+					widthInput.value = widthInput.value * 1.25 - ((widthInput.value * 1.25) % 2);
+				} else {
+					widthInput.value = widthInput.value * 1.25 - ((widthInput.value * 1.25) % 2) + 1;
+				}
+				let starts = document.getElementsByClassName("grid-item start-cell");
+				for (let i = 0; i < starts.length; i++) {
+					starts[i].classList.remove("start-cell");
+				}
+				// Remove the player and end cell
+				mazecells[currentX][currentY].style.backgroundColor = "";
+				mazecells[currentX][currentY].classList.remove("start-cell");
+				// Regenerate the maze
+				regenerateMaze();
+				// Set new destination and start positions
+				const newStartX = rows - 2;
+				const newStartY = columns - 2;
+				const newEndX = 1;
+				const newEndY = 1;
+				mazecells[newStartX][newStartY].classList.remove("end-cell");
+				mazecells[newStartX][newStartY].classList.add("start-cell");
+				mazecells[newEndX][newEndY].classList.remove("wall");
+				mazecells[newEndX][newEndY].classList.remove("end-cell");
+				mazecells[newEndX][newEndY].classList.add("start-cell");
+				mazecells[newEndX][newEndY].style.backgroundColor = getPlayerColour();
+				currentX = newEndX;
+				currentY = newEndY;
+				mazecells[1][1].style.backgroundColor = "orange";
+			}
+		}
 
 		function backlockcheck() {
 			let txt = document.getElementById("lockback");
