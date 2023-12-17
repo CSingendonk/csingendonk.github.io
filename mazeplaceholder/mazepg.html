@@ -387,8 +387,8 @@
       const newEndX = 1;
       const newEndY = 1;
 
-      mazecells[newStartX][newStartY].classList.remove("start-cell");
-      mazecells[newStartX][newStartY].classList.add("end-cell");
+      mazecells[newStartX][newStartY].classList.remove("end-cell");
+      mazecells[newStartX][newStartY].classList.add("start-cell");
 
       mazecells[newEndX][newEndY].classList.remove("wall");
       mazecells[newEndX][newEndY].classList.remove("end-cell");
