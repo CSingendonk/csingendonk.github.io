@@ -375,15 +375,17 @@
 				if (topleft.classList.contains("start-cell")) {
 					mazecells[1][1].classList.remove("start-cell");
 					mazecells[1][1].classList.add("end-cell");
-					mazecells[1][1].style.backgroundColor = getPathColour();
+					mazecells[currentX][currentY].style.backgroundColor = getPathColour();
 					const bottomrightrow = rows - 1;
 					const bottomrightcol = columns - 1;
 					if (mazecells[bottomrightrow][bottomrightcol].classList.contains("end-cell")) {
-						mazecells[bottomrightrow][bottonrightcol].classList.remove("wall");
-						mazecells[bottomrightrow][bottonrightcol].classList.remove("end-cell");
-						mazecells[bottomrightrow][bottonrightcol].classList.add("start-cell");
-						mazecells[bottomrightrow][bottonrightcol].style.backgroundColor = getPlayerColor();
-						topright.style.backgroundColor = "orange";
+						mazecells[bottomrightrow][bottomrightcol].classList.remove("wall");
+						mazecells[bottomrightrow][bottomrightcol].classList.remove("end-cell");
+						mazecells[bottomrightrow][bottomrightcol].classList.add("start-cell");
+						mazecells[bottomrightrow][bottomrightcol].style.backgroundColor = getPlayerColor();
+						currentX = bottomrightcol;
+						currentY = bottomrightcol;
+						mazecells[1][1].style.backgroundColor = "orange";
 					}
 				}
 			}
