@@ -168,6 +168,33 @@
 			return mazecells[x][y].classList.contains("wall");
 		}
 		const h = document.getElementsByTagName("body").height;
+function arrivedAtDestination(newX, newY) {
+  const ccell = mazecells[newX][newY];
+  const goBack = document.getElementById("goBackInput");
+
+  if (goBack.checked) {
+    ccell.style.color = "green";
+  } else {
+    const wc = getWallColour();
+    ccell.style.backgroundColor = wc;
+
+    // Increase maze size by 25%
+    const widthInput = document.getElementById("widthIn");
+    const heightInput = document.getElementById("heightIn");
+    const newWidth = Math.ceil(widthInput.value * 1.25);
+    const newHeight = Math.ceil(heightInput.value * 1.25);
+
+    if (!isValidOdd(newWidth) || !isValidOdd(newHeight)) {
+      alert("Please enter valid odd numbers for width and height.");
+      return;
+    }
+
+    widthInput.value = newWidth;
+    heightInput.value = newHeight;
+
+    regenerateMaze();
+  }
+}
 
 		function regenerateMaze() {
 			const widthInput = document.getElementById("widthIn");
@@ -361,7 +388,7 @@
 			tooltip2.style.display = "none";
 		});
 
-		function arrivedAtDestination(newX, newY) {
+		function arrivedAtDestination2(newX, newY) {
 			const ccell = mazecells[newX][newY];
 			const goBack = document.getElementById("goBackInput");
 			if (goBack.checked) {
