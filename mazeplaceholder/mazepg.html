@@ -411,4 +411,15 @@
 		}
 	</script>
 </div>
+	<div id="arrow-buttons" style="text-align: center; margin-top: 20px;">
+    <button onclick="simulateKeyPress('ArrowUp')">↑</button><br>
+    <button onclick="simulateKeyPress('ArrowLeft')">←</button>
+    <button onclick="simulateKeyPress('ArrowRight')">→</button><br>
+    <button onclick="simulateKeyPress('ArrowDown')">↓</button>
+		<script>
+			function simulateKeyPress(key) {
+        const event = new KeyboardEvent('keydown', { key });
+        window.dispatchEvent(event);
+    }</script>
+</div>
 </html>
