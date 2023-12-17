@@ -1,22 +1,4 @@
-<!DOCTYPE html>
-<html lang="en" >
-<head>
-  <meta charset="UTF-8">
-  <title>CodePen - MazeGen</title>
-</head>
-<header>
-<nav>
-	<ul>
-		<li><em><strong>Christopher Singendonk</strong></em></li>
-		<li><a href="index.html">HOME</a></li>
-		<li><a href="index.html">ABOUT ME</a></li>
-		<li><a href="mazeplaceholder/mazepg.html">PORTFOLIO</a></li>
-		<li><a href="placeholderchtshthtml.html">HTMLCHEATSHEET</a></li>
-	</ul>
-</nav>
-</header>
-	<body>
-<style>
+<html><style>
 	* {
 		box-sizing: border-box;
 		margin: 0px;
@@ -88,10 +70,10 @@
 		New Maze<br />
 		<div style="padding-left: 2%; margin-top: 6px">
 			<label for="widthIn">Width: </label>
-			<input pattern="[0-9]" style="width: 25px" type="text" id="widthIn" placeholder="25" value="25" />
+			<input pattern="[0-9]" style="width: 25px" type="text" id="widthIn" placeholder="25" value="45" />
 			<br />
 			<label for="heightIn">Height: </label>
-			<input style="width: 25px" type="text" id="heightIn" placeholder="25" value="15" /><br />
+			<input style="width: 25px" type="text" id="heightIn" placeholder="25" value="35" /><br />
 			<hr style="width: 100%; height:0.5vmin; background-color: #000000; color: #ef0ff0">
 		</div>
 
@@ -168,33 +150,6 @@
 			return mazecells[x][y].classList.contains("wall");
 		}
 		const h = document.getElementsByTagName("body").height;
-function arrivedAtDestination(newX, newY) {
-  const ccell = mazecells[newX][newY];
-  const goBack = document.getElementById("goBackInput");
-
-  if (goBack.checked) {
-    ccell.style.color = "green";
-  } else {
-    const wc = getWallColour();
-    ccell.style.backgroundColor = wc;
-
-    // Increase maze size by 25%
-    const widthInput = document.getElementById("widthIn");
-    const heightInput = document.getElementById("heightIn");
-    const newWidth = Math.ceil(widthInput.value * 1.25);
-    const newHeight = Math.ceil(heightInput.value * 1.25);
-
-    if (!isValidOdd(newWidth) || !isValidOdd(newHeight)) {
-      alert("Please enter valid odd numbers for width and height.");
-      return;
-    }
-
-    widthInput.value = newWidth;
-    heightInput.value = newHeight;
-
-    regenerateMaze();
-  }
-}
 
 		function regenerateMaze() {
 			const widthInput = document.getElementById("widthIn");
@@ -388,7 +343,7 @@ function arrivedAtDestination(newX, newY) {
 			tooltip2.style.display = "none";
 		});
 
-		function arrivedAtDestination2(newX, newY) {
+		function arrivedAtDestination(newX, newY) {
 			const ccell = mazecells[newX][newY];
 			const goBack = document.getElementById("goBackInput");
 			if (goBack.checked) {
@@ -424,10 +379,10 @@ function arrivedAtDestination(newX, newY) {
 					const bottomrightrow = rows - 1;
 					const bottomrightcol = columns - 1;
 					if (mazecells[bottomrightrow][bottomrightcol].classList.contains("end-cell")) {
-						mazecells[bottomrightrow][bottomrightcol].classList.remove("wall");
-						mazecells[bottomrightrow][bottomrightcol].classList.remove("end-cell");
-						mazecells[bottomrightrow][bottomrightcol].classList.add("start-cell");
-						mazecells[bottomrightrow][bottomrightcol].style.backgroundColor = getPlayerColor();
+						mazecells[bottomrightrow][bottonrightcol].classList.remove("wall");
+						mazecells[bottomrightrow][bottonrightcol].classList.remove("end-cell");
+						mazecells[bottomrightrow][bottonrightcol].classList.add("start-cell");
+						mazecells[bottomrightrow][bottonrightcol].style.backgroundColor = getPlayerColor();
 						topright.style.backgroundColor = "orange";
 					}
 				}
@@ -443,5 +398,5 @@ function arrivedAtDestination(newX, newY) {
 			}
 		}
 	</script>
-</body>
+</div>
 </html>
