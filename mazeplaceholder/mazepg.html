@@ -397,10 +397,10 @@
 					const bottomrightrow = rows - 1;
 					const bottomrightcol = columns - 1;
 					if (mazecells[bottomrightrow][bottomrightcol].classList.contains("end-cell")) {
-						mazecells[bottomrightrow][bottonrightcol].classList.remove("wall");
-						mazecells[bottomrightrow][bottonrightcol].classList.remove("end-cell");
-						mazecells[bottomrightrow][bottonrightcol].classList.add("start-cell");
-						mazecells[bottomrightrow][bottonrightcol].style.backgroundColor = getPlayerColor();
+						mazecells[bottomrightrow][bottomrightcol].classList.remove("wall");
+						mazecells[bottomrightrow][bottomrightcol].classList.remove("end-cell");
+						mazecells[bottomrightrow][bottomrightcol].classList.add("start-cell");
+						mazecells[bottomrightrow][bottomrightcol].style.backgroundColor = getPlayerColor();
 						topright.style.backgroundColor = "orange";
 					}
 				}
