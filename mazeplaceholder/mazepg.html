@@ -84,17 +84,17 @@
 			<p style="max-width: 25vw">Using the Backwards Travel button to switch what happens to each square when you move to the next one, turn as many squares in the maze as you can into walls without backing yourself into a dead end.</p>
 			<h3>Rules</h3>
 			<p>When the Backwards Travel button is checked, when you leave a cell that cell will become a wall and you cannot return through it. When unchecked you may return through that cell but your position will become hidden until the Backwards Travel button is unchecked or you move onto an unvisited cell.</p>
-			<p style="max-width: 25vw">If the destination tile is switched to a wall, the maze will regenerate randomly in a larger size. (not rn tho)</p>
+			<p style="max-width: 25vw">If the destination tile is switched to a wall, the maze will regenerate randomly in a larger size.</p>
 		</div>
 
 		<hr style="width: 103.7%; height: 2px; background-color: #000000" />
 		New Maze<br />
 		<div style="padding-left: 2%; margin-top: 6px">
 			<label for="widthIn">Width: </label>
-			<input pattern="[0-9]" style="width: 25px" type="text" id="widthIn" placeholder="25" value="75" />
+			<input pattern="[0-9]" style="width: 25px" type="text" id="widthIn" placeholder="25" value="15" />
 			<br />
 			<label for="heightIn">Height: </label>
-			<input style="width: 25px" type="text" id="heightIn" placeholder="25" value="95" /><br />
+			<input style="width: 25px" type="text" id="heightIn" placeholder="25" value="11" /><br />
 			<hr style="width: 100%; height:0.5vmin; background-color: #000000; color: #ef0ff0">
 		</div>
 
@@ -188,8 +188,8 @@
 		const h = document.getElementsByTagName("body").height;
 
 		function regenerateMaze() {
-						generateMaze(1,1);
 
+			
 			const widthInput = document.getElementById("widthIn");
 			const heightInput = document.getElementById("heightIn");
 			const newWidth = parseInt(widthInput.value);
@@ -200,13 +200,17 @@
 			}
 			rows = newHeight;
 			columns = newWidth;
+			generateMaze(rows, columns);
 			maze = new Array(rows);
 			for (let i = 0; i < rows; i++) {
 				maze[i] = new Array(columns).fill(false);
 				mazecells[i] = maze[i];
 			}
 			let grid = document.getElementById("grid");
+			mc.removeChild(grid);
 			grid.innerHTML = "";
+			let mc = document.getElementById("maze-container");
+			mc.appendChild(grid);
 			grid.style.gridTemplateColumns = `repeat(${columns}, calc( 90vw / ${columns} ))`;
 			grid.style.gridTemplateRows = `repeat(${rows}, calc( 95vh / ${rows} ))`;
 			generateMaze(1, 1);
@@ -231,6 +235,7 @@
 					}
 					grid.appendChild(cell);
 					mazecells[i][j] = cell;
+					generateMaze(1,1);
 				}
 			}
 		}
