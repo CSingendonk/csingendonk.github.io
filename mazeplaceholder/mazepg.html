@@ -188,6 +188,8 @@
 		const h = document.getElementsByTagName("body").height;
 
 		function regenerateMaze() {
+						generateMaze(1,1);
+
 			const widthInput = document.getElementById("widthIn");
 			const heightInput = document.getElementById("heightIn");
 			const newWidth = parseInt(widthInput.value);
