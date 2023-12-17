@@ -343,53 +343,63 @@
 			tooltip2.style.display = "none";
 		});
 
-		function arrivedAtDestination(newX, newY) {
-			const ccell = mazecells[newX][newY];
-			const goBack = document.getElementById("goBackInput");
-			if (goBack.checked) {
-				ccell.style.color = "green";
-			} else {
-				const wc = getWallColour();
-				ccell.style.backgroundColor = wc;
-				const widthInput = document.getElementById("widthIn");
-				const heightInput = document.getElementById("heightIn");
-				if (isValidOdd(heightInput.value * 1.25 - ((heightInput.value * 1.25) % 2))) {
-					heightInput.value =
-						heightInput.value * 1.25 - ((heightInput.value * 1.25) % 2);
-				} else {
-					heightInput.value =
-						heightInput.value * 1.25 - ((heightInput.value * 1.25) % 2) + 1;
-				}
-				if (isValidOdd(widthInput.value * 1.25 - ((widthInput.value * 1.25) % 2))) {
-					widthInput.value = widthInput.value * 1.25 - ((widthInput.value * 1.25) % 2);
-				} else {
-					widthInput.value =
-						widthInput.value * 1.25 - ((widthInput.value * 1.25) % 2) + 1;
-				}
-				let starts = document.getElementsByClassName("grid-item start-cell");
-				for (let i = 0; i < starts.length; i++) {
-					starts[i].classList.remove("start-cell");
-				}
-				regenerateMaze();
-				const topleft = mazecells[1][1];
-				if (topleft.classList.contains("start-cell")) {
-					mazecells[1][1].classList.remove("start-cell");
-					mazecells[1][1].classList.add("end-cell");
-					mazecells[currentX][currentY].style.backgroundColor = getPathColour();
-					const bottomrightrow = rows - 1;
-					const bottomrightcol = columns - 1;
-					if (mazecells[bottomrightrow][bottomrightcol].classList.contains("end-cell")) {
-						mazecells[bottomrightrow][bottomrightcol].classList.remove("wall");
-						mazecells[bottomrightrow][bottomrightcol].classList.remove("end-cell");
-						mazecells[bottomrightrow][bottomrightcol].classList.add("start-cell");
-						mazecells[bottomrightrow][bottomrightcol].style.backgroundColor = getPlayerColor();
-						currentX = bottomrightcol;
-						currentY = bottomrightcol;
-						mazecells[1][1].style.backgroundColor = "orange";
-					}
-				}
-			}
-		}
+
+  function arrivedAtDestination(newX, newY) {
+    const ccell = mazecells[newX][newY];
+    const goBack = document.getElementById("goBackInput");
+
+    if (goBack.checked) {
+      ccell.style.color = "green";
+    } else {
+      const wc = getWallColour();
+      ccell.style.backgroundColor = wc;
+
+      const widthInput = document.getElementById("widthIn");
+      const heightInput = document.getElementById("heightIn");
+
+      if (isValidOdd(heightInput.value * 1.25 - ((heightInput.value * 1.25) % 2))) {
+        heightInput.value = heightInput.value * 1.25 - ((heightInput.value * 1.25) % 2);
+      } else {
+        heightInput.value = heightInput.value * 1.25 - ((heightInput.value * 1.25) % 2) + 1;
+      }
+
+      if (isValidOdd(widthInput.value * 1.25 - ((widthInput.value * 1.25) % 2))) {
+        widthInput.value = widthInput.value * 1.25 - ((widthInput.value * 1.25) % 2);
+      } else {
+        widthInput.value = widthInput.value * 1.25 - ((widthInput.value * 1.25) % 2) + 1;
+      }
+
+      let starts = document.getElementsByClassName("grid-item start-cell");
+      for (let i = 0; i < starts.length; i++) {
+        starts[i].classList.remove("start-cell");
+      }
+
+      // Remove the player and end cell
+      mazecells[currentX][currentY].style.backgroundColor = "";
+      mazecells[currentX][currentY].classList.remove("start-cell");
+
+      // Regenerate the maze
+      regenerateMaze();
+
+      // Set new destination and start positions
+      const newStartX = rows - 2;
+      const newStartY = columns - 2;
+      const newEndX = 1;
+      const newEndY = 1;
+
+      mazecells[newStartX][newStartY].classList.remove("start-cell");
+      mazecells[newStartX][newStartY].classList.add("end-cell");
+
+      mazecells[newEndX][newEndY].classList.remove("wall");
+      mazecells[newEndX][newEndY].classList.remove("end-cell");
+      mazecells[newEndX][newEndY].classList.add("start-cell");
+
+      mazecells[newEndX][newEndY].style.backgroundColor = getPlayerColour();
+      currentX = newEndX;
+      currentY = newEndY;
+      mazecells[1][1].style.backgroundColor = "orange";
+    }
+  }
 
 		function backlockcheck() {
 			let txt = document.getElementById("lockback");
