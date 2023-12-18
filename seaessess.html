@@ -4,363 +4,1042 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>CSS Reference Table</title>
-    <style>
-        body {
-            font-family: 'Arial', sans-serif;
-            margin: 0;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            min-height: 100vh;
-            background-color: #f2f2f2;
-        }
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>CSS Reference Table</title>
+	<style>
+		body {
+			font-family: "Arial", sans-serif;
+			margin: 0;
+			display: flex;
+			align-items: center;
+			justify-content: center;
+			min-height: 100vh;
+			background-color: #f2f2f2;
+		}
 
-        #referenceTable {
-            background-color: #fff;
-            border-radius: 8px;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-            padding: 20px;
-            width: 80%;
-            max-width: 600px;
-        }
+		select {
+			margin-top: 2.2vh;
+			margin-left: 5vw;
+			min-width: 30vw;
+		}
 
-        table {
-            width: 100%;
-            border-collapse: collapse;
-            margin-top: 20px;
-        }
+		header {
+			background-color: #80410;
+			padding: 1px auto;
+			align-content: center;
+			color: #200050;
+			text-align: center;
+			display: inline-flex;
+			margin-bottom: 1%;
+			width: 100%;
+			position: static;
+			margin-top: 5%;
+		}
 
-        th, td {
-            padding: 12px;
-            text-align: left;
-            border-bottom: 1px solid #ddd;
-        }
+		header h1,
+		header p {
+			margin: 0px auto;
+			text-align: center;
+			background-color: transparent;
+			padding: 2%;
+			padding-bottom: 0.5%;
+		}
 
-        th {
-            background-color: #4CAF50;
-            color: white;
-        }
+		header>span {
+			display: inline-flex;
+			vertical-align: top;
+			margin: 0 auto;
+			position: absolute;
+			top: 6vh;
+		}
 
-        tr:hover {
-            background-color: #f5f5f5;
-        }
+		header p {
+			vertical-align: top;
+			display: flex;
+			margin-top: -2.5%;
+			justify-content: stretch;
+		}
 
-        @media only screen and (max-width: 600px) {
-            #referenceTable {
-                width: 95%;
-            }
-        }
-    </style>
+		nav {
+			background-color: rgba(0, 25, 0, 75%);
+			text-align: center;
+			display: inline-block;
+			position: fixed;
+			top: 0px;
+			left: 0px;
+			padding-top: 1%;
+			width: 100vw;
+			max-width: 100vw;
+			height: content;
+			max-height: content;
+			padding: 1% auto-flow;
+			z-index: 1;
+		}
+
+		nav a {
+			margin: 0 1rem;
+			text-decoration: underline;
+			color: #950010;
+			font-weight: bold;
+		}
+
+		#searchInput {
+			border: green double thick;
+			border-bottom: darkgreen inset thick;
+			border-right: darkgreen groove thick;
+			border-collapse: collapsed;
+			margin-left: 5vw;
+			margin-bottom: 1%;
+		}
+
+		#referenceTable {
+			background-color: #fff;
+			border-radius: 8px;
+			box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+			column-span: all;
+			width: 100%;
+			max-width: 100vw;
+			margin: 0 auto;
+			margin-top: 10%;
+			/* Center the table */
+		}
+
+		table {
+			width: 100vw;
+			column-span: all;
+			border-collapse: collapse;
+		}
+
+		th,
+		td {
+			padding: 12px;
+			text-align: left;
+			border-bottom: 1px solid #ddd;
+		}
+
+		th {
+			background-color: #4caf50;
+			color: white;
+		}
+
+		tr {
+			transition: transform 0.2s ease;
+			background-color: transparent;
+			transform: scale(0.95);
+		}
+
+		tr:hover {
+			background-color: #f5f5f5;
+		}
+
+		@media only screen and (max-width: 100vw) {
+			#referenceTable {
+				width: 95%;
+			}
+		}
+	</style>
 </head>
+
 <body>
-    <div id="referenceTable">
-        <table>
-            <thead>
-                <tr>
-                    <th>Property</th>
-                    <th>Description</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr>
-                    <td>color</td>
-                    <td>Sets the color of text</td>
-                </tr>
-                <tr>
-                    <td>font-size</td>
-                    <td>Sets the size of the font</td>
-                </tr>
-            </tbody>
-        </table>
-    </div>
+	<header>
+		<nav name="navi">
+			<a href="#projects">Projects</a>
+			<a href="#html">HTML Reference</a>
+			<a href="#css" onclick="navtocss">CSS Reference</a>
+			<a href="#javascript">JavaScript Reference</a>
+			<a href="#resume">Resume</a>
+		</nav>
+		<span name="searchbar" id="searchinputs">
+			<input type="text" id="searchInput" placeholder="Type to search">
+			<button onclick="searchAndHighlight()">Search</button>
+			<select id="searchResults"></select>
+			<input type="checkbox" style="color:white" onclick="makePreviewBox()" id="prvwchkbx">
+			<label for="prvwchkbx" style="color: white;">Preview Box</label>
+			</input>
+		</span>
+	</header>
+	<div id="referenceTable">
+		<table>
+			<thead>
+				<tr>
+					<th>Property</th>
+					<th>Description</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr>
+					<td>color</td>
+					<td>Sets the color of text</td>
+				</tr>
+				<tr>
+					<td>font-size</td>
+					<td>Sets the size of the font</td>
+				</tr>
+				<h3>Font Properties</h3>
+				<table>
+					<thead>
+						<tr>
+							<th>Property</th>
+							<th>Description</th>
+							<th>Valid for Elements</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr>
+							<td>Font-Family</td>
+							<td>Changes the font family of text.</td>
+							<td>All elements that can contain text.</td>
+						</tr>
+						<tr>
+							<td>Font-Style</td>
+							<td>Changes text style: normal, oblique, italics.</td>
+							<td>All elements that can contain text.</td>
+						</tr>
+						<tr>
+							<td>Font-Variant</td>
+							<td>Displays font in normal or small-caps.</td>
+							<td>All elements that can contain text.</td>
+						</tr>
+						<tr>
+							<td>Font-Weight</td>
+							<td>Specifies the weight of the font.</td>
+							<td>All elements that can contain text.</td>
+						</tr>
+						<tr>
+							<td>Font-Size</td>
+							<td>Modifies the size of the displayed font.</td>
+							<td>All elements that can contain text.</td>
+						</tr>
+						<tr>
+							<td>Font</td>
+							<td>Combines all font properties.</td>
+							<td>All elements that can contain text.</td>
+						</tr>
+					</tbody>
+				</table>
+				<h3>Color and Background Properties</h3>
+				<table>
+					<thead>
+						<tr>
+							<th>Property</th>
+							<th>Description</th>
+							<th>Valid for Elements</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr>
+							<td>Color</td>
+							<td>Changes the color of text.</td>
+							<td>All elements that can contain text.</td>
+						</tr>
+						<tr>
+							<td>Background-Color</td>
+							<td>Sets the background color of an element.</td>
+							<td>All elements.</td>
+						</tr>
+						<tr>
+							<td>Background-Image</td>
+							<td>Sets the background image of an element.</td>
+							<td>All elements.</td>
+						</tr>
+						<tr>
+							<td>Background-Repeat</td>
+							<td>Determines how a background image is repeated.</td>
+							<td>All elements.</td>
+						</tr>
+						<tr>
+							<td>Background-Attachment</td>
+							<td>Determines if a background image scrolls.</td>
+							<td>All elements.</td>
+						</tr>
+						<tr>
+							<td>Background</td>
+							<td>Combines all background properties.</td>
+							<td>All elements.</td>
+						</tr>
+					</tbody>
+				</table>
+				<h3>Text Properties</h3>
+				<table>
+					<thead>
+						<tr>
+							<th>Property</th>
+							<th>Description</th>
+							<th>Valid for Elements</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr>
+							<td>Word-Spacing</td>
+							<td>Adds space between words.</td>
+							<td>All elements that can contain text.</td>
+						</tr>
+						<tr>
+							<td>Letter-Spacing</td>
+							<td>Adds space between characters.</td>
+							<td>All elements that can contain text.</td>
+						</tr>
+						<tr>
+							<td>Text-Decoration</td>
+							<td>Decorates text: underline, overline, etc.</td>
+							<td>All elements that can contain text.</td>
+						</tr>
+						<tr>
+							<td>Vertical-Align</td>
+							<td>Alters the vertical positioning of text.</td>
+							<td>All inline and table elements.</td>
+						</tr>
+						<tr>
+							<td>Text-Transform</td>
+							<td>Capitalizes words or letters.</td>
+							<td>All elements that can contain text.</td>
+						</tr>
+						<tr>
+							<td>Text-Align</td>
+							<td>Justifies text: left, center, right.</td>
+							<td>All elements that can contain text.</td>
+						</tr>
+						<tr>
+							<td>Text-Indent</td>
+							<td>Specifies indentation before the first line.</td>
+							<td>All elements that can contain text.</td>
+						</tr>
+						<tr>
+							<td>Line-Height</td>
+							<td>Controls spacing between baselines of text.</td>
+							<td>All elements that can contain text.</td>
+						</tr>
+					</tbody>
+				</table>
+				<h3>Classification Properties</h3>
+				<table>
+					<thead>
+						<tr>
+							<th>Property</th>
+							<th>Description</th>
+							<th>Valid for Elements</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr>
+							<td>List-Style-Type</td>
+							<td>Specifies the type of list-item marker.</td>
+							<td>All list elements and 'display: list-item'.</td>
+						</tr>
+						<tr>
+							<td>List-Style-Image</td>
+							<td>Specifies the image used as a list-item marker.</td>
+							<td>All list elements and 'display: list-item'.</td>
+						</tr>
+						<tr>
+							<td>List-Style-Position</td>
+							<td>Determines where the marker is placed.</td>
+							<td>All list elements and 'display: list-item'.</td>
+						</tr>
+					</tbody>
+				</table>
+				<h3>Box Properties</h3>
+				<table>
+					<thead>
+						<tr>
+							<th>Property</th>
+							<th>Description</th>
+							<th>Valid for Elements</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr>
+							<td>Margin</td>
+							<td>Sets the margins of an element.</td>
+							<td>All elements.</td>
+						</tr>
+						<tr>
+							<td>Padding</td>
+							<td>Shorthand for padding properties.</td>
+							<td>All elements.</td>
+						</tr>
+						<tr>
+							<td>Border-Top-Width</td>
+							<td>Specifies the width of an element's top border.</td>
+							<td>All elements.</td>
+						</tr>
+						<tr>
+							<td>Border-Right-Width</td>
+							<td>Specifies the width of an element's right border.</td>
+							<td>All elements.</td>
+						</tr>
+						<tr>
+							<td>Border-Bottom-Width</td>
+							<td>Specifies the width of an element's bottom border.</td>
+							<td>All elements.</td>
+						</tr>
+						<tr>
+							<td>Border-Left-Width</td>
+							<td>Specifies the width of an element's left border.</td>
+							<td>All elements.</td>
+						</tr>
+						<tr>
+							<td>Border-Width</td>
+							<td>Sets the width of an element's border.</td>
+							<td>All elements.</td>
+						</tr>
+						<tr>
+							<td>Border-Color</td>
+							<td>Sets the color of an element's border.</td>
+							<td>All elements.</td>
+						</tr>
+						<tr>
+							<td>Border-Style</td>
+							<td>Sets the style of an element's border.</td>
+							<td>All elements.</td>
+						</tr>
+						<tr>
+							<td>Border-Top</td>
+							<td>Sets the width, style, and color of an element's top border.</td>
+							<td>All elements.</td>
+						</tr>
+						<tr>
+							<td>Border-Right</td>
+							<td>Sets the width, style, and color of an element's right border.</td>
+							<td>All elements.</td>
+						</tr>
+						<tr>
+							<td>Border-Bottom</td>
+							<td>Sets the width, style, and color of an element's bottom border.</td>
+							<td>All elements.</td>
+						</tr>
+						<tr>
+							<td>Border-Left</td>
+							<td>Sets the width, style, and color of an element's left border.</td>
+							<td>All elements.</td>
+						</tr>
+						<tr>
+							<td>Border</td>
+							<td>Sets the width, style, and color of an element's border.</td>
+							<td>All elements.</td>
+						</tr>
+						<tr>
+							<td>Width</td>
+							<td>Specifies the width of a block-level or replaced element.</td>
+							<td>All block-level and replaced elements.</td>
+						</tr>
+						<tr>
+							<td>Height</td>
+							<td>Specifies the height of a block-level or replaced element.</td>
+							<td>All block-level and replaced elements.</td>
+						</tr>
+						<tr>
+							<td>Float</td>
+							<td>Allows text to wrap around an element.</td>
+							<td>All block-level and replaced elements.</td>
+						</tr>
+						<tr>
+							<td>Clear</td>
+							<td>Specifies whether an element allows floating elements to its sides.</td>
+							<td>All elements.</td>
+						</tr>
+					</tbody>
+				</table>
+				<h3>Additional Text Properties</h3>
+				<table>
+					<thead>
+						<tr>
+							<th>Property</th>
+							<th>Description</th>
+							<th>Valid for Elements</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr>
+							<td>White-Space</td>
+							<td>Controls white space handling.</td>
+							<td>All elements.</td>
+						</tr>
+						<tr>
+							<td>Overflow</td>
+							<td>Specifies what happens if content overflows.</td>
+							<td>All elements.</td>
+						</tr>
+						<tr>
+							<td>Text-Overflow</td>
+							<td>Specifies how overflowed content is indicated.</td>
+							<td>All block-level elements.</td>
+						</tr>
+						<tr>
+							<td>Tab-Size</td>
+							<td>Specifies the width of a tab character.</td>
+							<td>All elements that can contain text.</td>
+						</tr>
+						<tr>
+							<td>Direction</td>
+							<td>Specifies the text direction.</td>
+							<td>All elements.</td>
+						</tr>
+						<tr>
+							<td>Unicode-Bidi</td>
+							<td>Controls the text flow direction.</td>
+							<td>All elements.</td>
+						</tr>
+						<tr>
+							<td>Resize</td>
+							<td>Specifies whether an element is resizable.</td>
+							<td>All elements that support 'resize' property.</td>
+						</tr>
+					</tbody>
+				</table>
+				<h3>Additional Classification Properties</h3>
+				<table>
+					<thead>
+						<tr>
+							<th>Property</th>
+							<th>Description</th>
+							<th>Valid for Elements</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr>
+							<td>Margin-Top</td>
+							<td>Sets the top margin of an element.</td>
+							<td>All elements.</td>
+						</tr>
+						<tr>
+							<td>Margin-Right</td>
+							<td>Sets the right margin of an element.</td>
+							<td>All elements.</td>
+						</tr>
+						<tr>
+							<td>Margin-Bottom</td>
+							<td>Sets the bottom margin of an element.</td>
+							<td>All elements.</td>
+						</tr>
+						<tr>
+							<td>Margin-Left</td>
+							<td>Sets the left margin of an element.</td>
+							<td>All elements.</td>
+						</tr>
+					</tbody>
+				</table>
+				<h3>Table Properties</h3>
+				<table>
+					<thead>
+						<tr>
+							<th>Property</th>
+							<th>Description</th>
+							<th>Valid for Elements</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr>
+							<td>Table-Layout</td>
+							<td>Specifies the algorithm used for table rendering.</td>
+							<td>TABLE</td>
+						</tr>
+						<tr>
+							<td>Border-Collapse</td>
+							<td>Specifies whether table borders should be collapsed.</td>
+							<td>TABLE</td>
+						</tr>
+						<tr>
+							<td>Border-Spacing</td>
+							<td>Sets the spacing between cells' borders.</td>
+							<td>TABLE</td>
+						</tr>
+						<tr>
+							<td>Empty-Cells</td>
+							<td>Specifies how empty cells in a table are rendered.</td>
+							<td>TABLE</td>
+						</tr>
+						<tr>
+							<td>Caption-Side</td>
+							<td>Specifies the placement of the table caption.</td>
+							<td>TABLE</td>
+						</tr>
+					</tbody>
+				</table>
+				<h3>List Properties</h3>
+				<table>
+					<thead>
+						<tr>
+							<th>Property</th>
+							<th>Description</th>
+							<th>Valid for Elements</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr>
+							<td>Margin-Top</td>
+							<td>Sets the top margin of a list.</td>
+							<td>OL, UL</td>
+						</tr>
+						<tr>
+							<td>Margin-Bottom</td>
+							<td>Sets the bottom margin of a list.</td>
+							<td>OL, UL</td>
+						</tr>
+						<tr>
+							<td>List-Style-Type</td>
+							<td>Specifies the type of list-item marker.</td>
+							<td>OL, UL</td>
+						</tr>
+						<tr>
+							<td>List-Style-Image</td>
+							<td>Specifies the image used as a list-item marker.</td>
+							<td>OL, UL</td>
+						</tr>
+						<tr>
+							<td>List-Style-Position</td>
+							<td>Determines where the marker is placed in regard to the list item.</td>
+							<td>OL, UL</td>
+						</tr>
+					</tbody>
+				</table>
+				<h3>Font Properties</h3>
+				<table>
+					<thead>
+						<tr>
+							<th>Property</th>
+							<th>Description</th>
+							<th>Valid for Elements</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr>
+							<td>Font-Family</td>
+							<td>Changes the font family of text.</td>
+							<td>All elements that can contain text</td>
+						</tr>
+						<tr>
+							<td>Font-Style</td>
+							<td>Changes text style: normal, oblique, italics.</td>
+							<td>All elements that can contain text</td>
+						</tr>
+						<tr>
+							<td>Font-Variant</td>
+							<td>Displays font in normal or small-caps.</td>
+							<td>All elements that can contain text</td>
+						</tr>
+						<tr>
+							<td>Font-Weight</td>
+							<td>Specifies the weight of the font.</td>
+							<td>All elements that can contain text</td>
+						</tr>
+						<tr>
+							<td>Font-Size</td>
+							<td>Modifies the size of the displayed font.</td>
+							<td>All elements that can contain text</td>
+						</tr>
+						<tr>
+							<td>Font</td>
+							<td>Combines all font properties.</td>
+							<td>All elements that can contain text</td>
+						</tr>
+					</tbody>
+				</table>
+				<h3>Color and Background Properties</h3>
+				<table>
+					<thead>
+						<tr>
+							<th>Property</th>
+							<th>Description</th>
+							<th>Valid for Elements</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr>
+							<td>Color</td>
+							<td>Changes the color of text.</td>
+							<td>All elements that can contain text</td>
+						</tr>
+						<tr>
+							<td>Background-Color</td>
+							<td>Sets the background color of an element.</td>
+							<td>All elements</td>
+						</tr>
+						<tr>
+							<td>Background-Image</td>
+							<td>Sets the background image of an element.</td>
+							<td>All elements</td>
+						</tr>
+						<tr>
+							<td>Background-Repeat</td>
+							<td>Determines how a background image is repeated.</td>
+							<td>All elements</td>
+						</tr>
+						<tr>
+							<td>Background-Attachment</td>
+							<td>Determines if a background image scrolls.</td>
+							<td>All elements</td>
+						</tr>
+						<tr>
+							<td>Background</td>
+							<td>Combines all background properties.</td>
+							<td>All elements</td>
+						</tr>
+					</tbody>
+				</table>
+				<h3>Text Properties</h3>
+				<table>
+					<thead>
+						<tr>
+							<th>Property</th>
+							<th>Description</th>
+							<th>Valid for Elements</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr>
+							<td>Word-Spacing</td>
+							<td>Adds space between words.</td>
+							<td>All elements that can contain text</td>
+						</tr>
+						<tr>
+							<td>Letter-Spacing</td>
+							<td>Adds space between characters.</td>
+							<td>All elements that can contain text</td>
+						</tr>
+						<tr>
+							<td>Text-Decoration</td>
+							<td>Decorates text: underline, overline, etc.</td>
+							<td>All elements that can contain text</td>
+						</tr>
+						<tr>
+							<td>Vertical-Align</td>
+							<td>Alters the vertical positioning of text.</td>
+							<td>All inline and table elements</td>
+						</tr>
+						<tr>
+							<td>Text-Transform</td>
+							<td>Capitalizes words or letters.</td>
+							<td>All elements that can contain text</td>
+						</tr>
+						<tr>
+							<td>Text-Align</td>
+							<td>Justifies text: left, center, right.</td>
+							<td>All elements that can contain text</td>
+						</tr>
+						<tr>
+							<td>Text-Indent</td>
+							<td>Specifies indentation before the first line.</td>
+							<td>All elements that can contain text</td>
+						</tr>
+						<tr>
+							<td>Line-Height</td>
+							<td>Controls spacing between baselines of text.</td>
+							<td>All elements that can contain text</td>
+						</tr>
+					</tbody>
+				</table>
+				<h3>Classification Properties</h3>
+				<table>
+					<thead>
+						<tr>
+							<th>Property</th>
+							<th>Description</th>
+							<th>Valid for Elements</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr>
+							<td>List-Style-Type</td>
+							<td>Specifies the type of list-item marker.</td>
+							<td>All list elements and 'display: list-item'</td>
+						</tr>
+						<tr>
+							<td>List-Style-Image</td>
+							<td>Specifies the image used as a list-item marker.</td>
+							<td>All list elements and 'display: list-item'</td>
+						</tr>
+						<tr>
+							<td>List-Style-Position</td>
+							<td>Determines where the marker is placed.</td>
+							<td>All list elements and 'display: list-item'</td>
+						</tr>
+					</tbody>
+				</table>
+				<h3>Box Properties</h3>
+				<table>
+					<thead>
+						<tr>
+							<th>Property</th>
+							<th>Description</th>
+							<th>Valid for Elements</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr>
+							<td>Margin</td>
+							<td>Sets the margins of an element.</td>
+							<td>All elements</td>
+						</tr>
+						<tr>
+							<td>Padding</td>
+							<td>Shorthand for padding properties.</td>
+							<td>All elements</td>
+						</tr>
+						<tr>
+							<td>... (and a plethora of border-related properties, you get the drill)</td>
+							<td></td>
+							<td></td>
+						</tr>
+					</tbody>
+				</table>
+				<h3>Additional Text Properties</h3>
+				<table>
+					<thead>
+						<tr>
+							<th>Property</th>
+							<th>Description</th>
+							<th>Valid for Elements</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr>
+							<td>White-Space</td>
+							<td>Controls white space handling.</td>
+							<td>All elements</td>
+						</tr>
+						<tr>
+							<td>Overflow</td>
+							<td>Specifies what happens if content overflows.</td>
+							<td>All elements</td>
+						</tr>
+						<tr>
+							<td>Text-Overflow</td>
+							<td>Specifies how overflowed content is indicated.</td>
+							<td>All block-level elements</td>
+						</tr>
+						<tr>
+							<td>... (and more intriguing text-related properties)</td>
+							<td></td>
+							<td></td>
+						</tr>
+					</tbody>
+				</table>
+				<h3>CSS Selectors and Combinators</h3>
+				<table>
+					<thead>
+						<tr>
+							<th>Selector/Combinator</th>
+							<th>Description</th>
+							<th>Example</th>
+							<th>Targets</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr>
+							<td>Element Selector</td>
+							<td>Selects all instances of an HTML element.</td>
+							<td>p</td>
+							<td>All &lt;p&gt; elements</td>
+						</tr>
+						<tr>
+							<td>ID Selector</td>
+							<td>Selects an element with a specific ID.</td>
+							<td>#myId</td>
+							<td>Element with id="myId"</td>
+						</tr>
+						<tr>
+							<td>Class Selector</td>
+							<td>Selects elements with a specific class.</td>
+							<td>.myClass</td>
+							<td>All elements with class="myClass"</td>
+						</tr>
+						<tr>
+							<td>Universal Selector</td>
+							<td>Selects all elements.</td>
+							<td>*</td>
+							<td>All elements</td>
+						</tr>
+						<tr>
+							<td>Attribute Selector</td>
+							<td>Selects elements with a specific attribute.</td>
+							<td>[attribute]</td>
+							<td>All elements with "attribute"</td>
+						</tr>
+						<tr>
+							<td>... (and a buffet of advanced selectors and combinators)</td>
+							<td></td>
+							<td></td>
+							<td></td>
+						</tr>
+					</tbody>
+				</table>
+				<h3>Pseudo-classes</h3>
+				<table>
+					<thead>
+						<tr>
+							<th>Pseudo-class</th>
+							<th>Description</th>
+							<th>Example</th>
+							<th>Targets</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr>
+							<td>:hover</td>
+							<td>Selects and styles an element when hovered over.</td>
+							<td>a:hover</td>
+							<td>The &lt;a&gt; element when hovered over</td>
+						</tr>
+						<tr>
+							<td>:active</td>
+							<td>Selects and styles an element when activated.</td>
+							<td>button:active</td>
+							<td>The &lt;button&gt; element when activated</td>
+						</tr>
+						<tr>
+							<td>:focus</td>
+							<td>Selects and styles an element when focused.</td>
+							<td>input:focus</td>
+							<td>The &lt;input&gt; element when focused</td>
+						</tr>
+						<tr>
+							<td>:first-child</td>
+							<td>Selects the first child of a parent.</td>
+							<td>p:first-child</td>
+							<td>The first &lt;p&gt; element within its parent</td>
+						</tr>
+						<tr>
+							<td>:last-child</td>
+							<td>Selects the last child of a parent.</td>
+							<td>li:last-child</td>
+							<td>The last &lt;li&gt; element within its parent</td>
+						</tr>
+						<tr>
+							<td>:nth-child(n)</td>
+							<td>Selects the nth child of a parent.</td>
+							<td>div:nth-child(2)</td>
+							<td>The second &lt;div&gt; element within its parent</td>
+						</tr>
+						<tr>
+							<td>... (and a smorgasbord of other pseudo-classes)</td>
+							<td></td>
+							<td></td>
+							<td></td>
+						</tr>
+					</tbody>
+				</table>
+				<h3>Pseudo-elements</h3>
+				<table>
+					<thead>
+						<tr>
+							<th>Pseudo-element</th>
+							<th>Description</th>
+							<th>Example</th>
+							<th>Targets</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr>
+							<td>::before</td>
+							<td>Inserts content before the content of an element.</td>
+							<td>p::before</td>
+							<td>Inserts content before each &lt;p&gt; element</td>
+						</tr>
+						<tr>
+							<td>::after</td>
+							<td>Inserts content after the content of an element.</td>
+							<td>div::after</td>
+							<td>Inserts content after each &lt;div&gt; element</td>
+						</tr>
+						<tr>
+							<td>::first-line</td>
+							<td>Selects the first line of text in an element.</td>
+							<td>p::first-line</td>
+							<td>The first line of text in each &lt;p&gt; element</td>
+						</tr>
+						<tr>
+							<td>::first-letter</td>
+							<td>Selects the first letter of text in an element.</td>
+							<td>h1::first-letter</td>
+							<td>The first letter of each &lt;h1&gt; element</td>
+						</tr>
+					</tbody>
+				</table>
+				<h3>Attribute Selectors</h3>
+				<table>
+					<thead>
+						<tr>
+							<th>Attribute Selector</th>
+							<th>Description</th>
+							<th>Example</th>
+							<th>Targets</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr>
+							<td>[attribute^=value]</td>
+							<td>Selects elements with an attribute that starts with a specific value.</td>
+							<td>a[href^="https://"]</td>
+							<td>All &lt;a&gt; elements with an href starting with "https://"</td>
+						</tr>
+						<tr>
+							<td>[attribute$=value]</td>
+							<td>Selects elements with an attribute that ends with a specific value.</td>
+							<td>img[src$=".jpg"]</td>
+							<td>All &lt;img&gt; elements with a src ending with ".jpg"</td>
+						</tr>
+						<tr>
+							<td>[attribute*=value]</td>
+							<td>Selects elements with an attribute that contains a specific value.</td>
+							<td>input[type*="text"]</td>
+							<td>All &lt;input&gt; elements with a type containing "text"</td>
+						</tr>
+					</tbody>
+				</table>
+			</tbody>
+		</table>
+	</div>
+	<script>
+		function searchAndHighlight() {
+			var searchQuery = document.getElementById("searchInput").value.toLowerCase();
+			var table = document.getElementById("referenceTable");
+			var rows = document.getElementsByTagName("tr");
+			var searchResults = document.getElementById("searchResults");
+			searchResults.innerHTML = "";
+			// Reset table styles
+			for (var i = 0; i < rows.length; i++) {
+				var cells = rows[i].getElementsByTagName("td");
+				for (var j = 0; j < cells.length; j++) {
+					var cellText = cells[j].textContent.toLowerCase();
+					rows[i].id = i;
+					if (cellText.includes(searchQuery)) {
+						// Highlight the cell
+						cells[j].style.backgroundColor = "yellow";
+						// Create a result entry
+						var resultEntry = document.createElement("option");
+						resultEntry.textContent = cellText;
+						searchResults.appendChild(resultEntry);
+					}
+				}
+			}
+		}
+			function scrolltorow(rows) {
+		// Get references to the select element and the table
+		const mySelect = document.getElementById("searchResults");
+		const myTable = document.getElementById("referenceTable");
+		// Attach an event listener to the select element
+		mySelect.addEventListener("click", function() {
+			// Get the selected option value
+			const selectedValue = mySelect.value;
+			// Find the corresponding row in the table
+			let rowIndex = Array.from(rows).findIndex((row) =>
+				row.textContent.includes(selectedValue)
+			);
+			// Scroll to or highlight the selected row
+			if (rowIndex !== -1) {
+				if (rowIndex <= 4) {
+					rowIndex = rowIndex + 3;
+				}
+				rows[rowIndex - 3].scrollIntoView();
+			}
+		});
+	}
+	</script>
 </body>
-<style>
-	* {
-		box-sizing: border-box;
-	}
 
-	:root { 
-	      --scalevalueX: 1;
-	      --scalevalueY: 1;
-		--scalevalueXY: 1;
-	      }
-
-	#searchInput {
-		padding: 0.1%;
-		margin-bottom: 0.1%;
-	}
-
-	#tableContainer {
-		max-height: 80vh;
-		min-width: 90vw;
-		margin-left: 5vw;
-		margin-right: 5vw;
-		padding-right: 1%;
-	}
-
-	select {
-		margin-top: 2.2vh;
-		margin-left: 5vw;
-		min-width: 30vw;
-	}
-
-	header h1,
-	header p {
-		margin: 0px auto;
-		text-align: center;
-		background-color: transparent;
-		padding: 2%;
-		padding-bottom: 0.5%;
-	}
-
-	button {
-		background-color: rgba(100, 100, 100, 2%);
-		border-collapse: collapse;
-		color: #9510f5;
-		align-content: right;
-		position: relative;
-		right: 0;
-	}
-
-	body > span > h1 span {
-		text-decoration-style: normal;
-	}
-
-	#ftrreturntop {
-		position: fixed;
-		right: 2%;
-		font-size: 0.5rem;
-	}
-
-	footer a {
-		color: green;
-		margin-left: 0;
-		align-self: left;
-	}
-
-	footer a:visited {
-		color: snow;
-	}
-
-	footer a:hover {
-		color: red;
-	}
-
-	footer a:active {
-		color: snow;
-	}
-
-	body>span>h1 {
-		margin: 2% auto;
-		text-align: center;
-		margin-bottom: -1%;
-		color: #551919;
-		font-family: monospace;
-		/* "sans-serif", "comic-sans";*/
-		font-size: 1rem;
-		letter-spacing: 1vmin;
-		word-spacing: auto-flow;
-		text-decoration: underline overline;
-		text-decoration-skip: spaces;
-		font-weight: 900;
-	}
-
-	body>span>p {
-		margin: 1.5% auto;
-		text-align: center;
-		color: #50009a;
-	}
-
-	header p {
-		vertical-align: middle;
-		display: flex;
-		margin-top: -2.5%;
-		justify-content: stretch;
-	}
-
-	nav>a:hover {
-		border-radius: 25%;
-		border: #003000 double medium;
-		padding: 0.3%;
-		text-shadow: 0.5px 0.5px 5px black;
-		margin: 2%;
-		background-image: radial-gradient(black, #003000, #950010);
-		float: auto;
-		box-sizing: content-box;
-	}
-
-	#searchInput {
-		border: green double thick;
-		border-bottom: darkgreen inset thick;
-		border-right: darkgreen groove thick;
-		border-collapse: collapse;
-		margin-left: 5vw;
-		margin-bottom: 1%;
-	}
-
-	tr {
-		transition: transform 0.2s ease;
-		background-color: transparent;
-		transform: scale(0.95);
-	}
-
-	tr:hover {
-		background-color: transparent;
-	}
-
-	#thRow:hover {
-		transition: none;
-	}
-
-	body {
-		font-family: "Arial", sans-serif;
-		background-origin: 0.5 0.5;
-		background-color: #003000;
-		background-size: stretch;
-		color: #000;
-		margin: 0px auto;
-		padding: 5% auto;
-		max-width: 100vw;
-		box-sizing: content-box;
-	}
-
-	header {
-		background-color: #80410;
-		/* image */
-		padding: 1px auto;
-		align-content: center;
-		color: #200050;
-		text-align: center;
-		display: inline-flex;
-		margin-bottom: 1%;
-		width: 100%;
-		position: static;
-		margin-top: 5%;
-	}
-
-	nav {
-		background-color: rgba(0, 25, 0, 75%);
-		text-align: center;
-		display: inline-block;
-		position: fixed;
-		top: 0px;
-		left: 0px;
-		padding-top: 1%;
-		width: 100vw;
-		max-width: 100vw;
-		height: content;
-		max-height: content;
-		padding: 1% auto-flow;
-		z-index: 1;
-	}
-
-	nav a {
-		margin: 0 1rem;
-		text-decoration: underline;
-		color: #950010;
-		font-weight: bold;
-	}
-
-	table {
-		width: 100%;
-		border-collapse: collapse;
-		margin-top: 1em;
-		max-width: 90vw;
-	}
-
-	td {
-		height: 1rem;
-		min-height: 1rem;
-		max-width: fit-content;
-		border: none rgba(1, 1, 1, 50%);
-		color: white;
-		background-image: radial-gradient(rgba(0, 0, 0, 50%) 75%, rgba(50, 75, 0, 60%));
-		text-align: center;
-		line-break: none;
-		text-overflow: hidden;
-		font-size: 1rem;
-		display: inline;
-		column-span: all;
-		word-wrap: not-allowed;
-	}
-
-	th {
-		background-color: #deb887;
-		/* Burlywood */
-	}
-
-	footer:hover {
-		opacity: 100%;
-	}
-
-	footer {
-		opacity: 10%;
-		text-align: center;
-		background-color: #400098;
-		color: #fff;
-		margin-top: 2%;
-		max-height: 1rem;
-		position: fixed;
-		display: inline;
-		vertical-align: bottom;
-		bottom: 0%;
-		margin-top: 10px;
-		width: 100vw;
-		align-content: start;
-		z-index: 1;
-	}
-
-	.tagfield {
-		font-weight: 700;
-		height: 100%;
-		text-shadow: 1px 0px 5px black;
-		color: #fc0000;
-		max-width: fit-content;
-		word-wrap: wrap;
-		display: inline-flex;
-	}
-
-	cite {
-		font-size: 0.5rem;
-	}
-
-	pre {
-		text-align: center;
-		word-wrap: wrap;
-		column-span: all;
-		word-break: always;
-	}
-
-	p a {
-		color: snow;
-	}
-
-	p a:visited {
-		color: snow;
-	}
-
-	p a:hover {
-		color: green;
-	}
-
-	p a:hover+p a:visited {
-		red;
-	}
-
-	#prvwchkbx {
-		color: white;
-	}
-	
-	#tableOtags {
-		max-width: 100vw;
-		vertical-align: top;
-	}
-
-	button:hover {
-		transition-duration: 0.321s;
-		transform: rotatex(360deg);
-	}
-</style>
 </html>
 <!--
 <body>
