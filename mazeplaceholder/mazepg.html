@@ -1,440 +1,312 @@
-<html>
-<style>
-	* {
-		box-sizing: border-box;
-		margin: 0px;
-	}
+let rows = parseInt(document.getElementById("heightIn").value);
+let columns = parseInt(document.getElementById("widthIn").value);
+let maze = new Array(rows);
+let mazecells = new Array(rows);
+for (let i = 0; i < rows; i++) {
+	maze[i] = new Array(columns).fill(false);
+	mazecells[i] = maze[i];
+}
 
-	body {
-		display: block;
-		height: 100vh;
-		margin: 0;
-	}
+function isValid(x, y) {
+	return x >= 0 && x < rows && y >= 0 && y < columns;
+}
 
-	#maze-container {
-		display: flex;
-		position: relative;
-		right: 0;
-		overflow: contain;
-	}
-
-	#arrow-buttons {
-		display: inline-flex;
-		vertical-align: bottom;
-		justify-content: space-around;
-		align-content: right;
-		width: 75%;
-		margin: 0px;
-	}
-
-	#arrow-buttons>button {
-		margin-right: 2%;
-		width: 25%;
-		display: block;
-		direction: ltr;
-	}
-	
-	#arrow-buttons > button:nth-child(1){
-		margin-left: 5%;
-	}
-
-	#menu-bar {
-		width: 10vw;
-		height: 100%;
-		overflow-y: contain;
-		position: relative;
-		margin-left: 0px;
-		left: 0;
-		float: left;
-		clear: right;
-	}
-
-	#grid {
-		width: 100%;
-		height: 100%;
-		display: inline-grid;
-		align-items: stretch;
-		position: relative;
-	}
-
-	.grid-container {
-		align-content: stretch;
-		border: 1px solid #000;
-		display: grid;
-		position: relative;
-	}
-</style>
-<div id="menu-bar" style="border-right: solid; margin: 0.1px; padding: 0.1%; vertical-align: top; width:fit-content" rowspan="4">
-	<div title="Menu Bar">
-		<button id="infoDivButton" style="align-content: center; margin-left: 1vw; background-color: #1122ff; color: white;" onclick="infoDivClick()" type="button">ℹ️</button>
-		<button style="margin-left:1vw; background-color: #009ff5; font-size: 24px; align-self: center" class="grid-refresh" onclick="regenerateMaze()" id="refreshButton" type="button">🔃</button>
-		<div style="background-color: #f0ff00; margin: 1px; padding: 4px; max-width: 100%">
-			<input type="checkbox" onclick="backlockcheck()" id="goBackInput" style="content: 🔙; background-color: #f40f60;">
-			<label id="lockback" style="margin-left: 0px; font-size:11px" for="goBackInput">Unlock<br /> 🔙 Travel</label>
-		</div>
-		<span style="display: relative" id="infobuttontooltip" class="tooltip"></span>
-		<div id="infoDiv1" hidden style="padding-left: 2vmin">
-			<hr style="background-color: #2fff2a; height: 0.2vh; width: 100%;" />
-			<h3 style="font-weight: bold; font-size: 18px">Navigation</h3>
-			<label>
-				<em>↑ / ↓ / ← / →<br />
-					Arrow Keys</em>
-			</label>
-			<h3>Objective</h3>
-			<p style="max-width: 25vw">Using the Backwards Travel button to switch what happens to each square when you move to the next one, turn as many squares in the maze as you can into walls without backing yourself into a dead end.</p>
-			<h3>Rules</h3>
-			<p>When the Backwards Travel button is checked, when you leave a cell that cell will become a wall and you cannot return through it. When unchecked you may return through that cell but your position will become hidden until the Backwards Travel button is unchecked or you move onto an unvisited cell.</p>
-			<p style="max-width: 25vw">If the destination tile is switched to a wall, the maze will regenerate randomly in a larger size. (not rn tho)</p>
-		</div>
-
-		<hr style="width: 103.7%; height: 2px; background-color: #000000" />
-		New Maze<br />
-		<div style="padding-left: 2%; margin-top: 6px">
-			<label for="widthIn">Width: </label>
-			<input pattern="[0-9]" style="width: 25px" type="text" id="widthIn" placeholder="25" value="15" />
-			<br />
-			<label for="heightIn">Height: </label>
-			<input style="width: 25px" type="text" id="heightIn" placeholder="25" value="15" /><br />
-			<hr style="width: 100%; height:0.5vmin; background-color: #000000; color: #ef0ff0">
-		</div>
-
-		<label style="font-weight: bold; font-size: 18px; color: #1d3e5f; margin-left:2%;">Visuals</label><br />
-
-		<div><label for="colourInputStartid" style="width: 25%; font-size: 14px;">Player</label>
-			<input style="width: 75%; margin-right: 0px;" type="color" value="#5df9a0" id="colourInputStartid" />
-		</div>
-		<div><label for="colourInputEndid" style="width: 25%; font-size: 14px;">Destination</label>
-			<input style="width: 75%" type="color" value="#ffa200" name="colourInputEnd" id="colourInputEndid" />
-		</div>
-		<div><label for="colourInputPathid" style="width: 25%; font-size: 14px;">Corridors</label>
-			<input value="#3498db" style="width: 100%" type="color" name="colourInputPath" id="colourInputPathid" />
-		</div>
-		<div><label for="colourInputWallid" style="width: 25%; font-size: 14px;">Walls</label>
-			<input style="width: 100%" type="color" name="colourInputWall" id="colourInputWallid" value="#e74c3c" />
-		</div>
-		<hr style="width: 103%">
-	</div>
-</div>
-</div>
-<span id="arrow-buttons" style="text-align: center;">
-	<button onclick="simulateKeyPress('ArrowUp')">↑</button>
-	<button onclick="simulateKeyPress('ArrowLeft')">←</button>
-	<button onclick="simulateKeyPress('ArrowRight')">→</button>
-	<button onclick="simulateKeyPress('ArrowDown')">↓</button>
-	<script>
-		function simulateKeyPress(key) {
-			const event = new KeyboardEvent('keydown', {
-				key
-			});
-			window.dispatchEvent(event);
+function generateMaze(x, y) {
+	maze[x][y] = true;
+	const directions = [
+		[-2, 0],
+		[2, 0],
+		[0, -2],
+		[0, 2]
+	];
+	directions.sort(() => Math.random() - 0.5);
+	for (const [dx, dy] of directions) {
+		let newX = x + dx;
+		let newY = y + dy;
+		if (isValid(newX, newY) && !maze[newX][newY]) {
+			maze[x + dx / 2][y + dy / 2] = true;
+			generateMaze(newX, newY);
 		}
-	</script>
-</span>
-<div id="maze-container">
-	<div id="grid" class="grid-container">
-		<!-- JavaScript will fill in the maze -->
-	</div>
+	}
+}
+generateMaze(1, 1);
+maze[rows - 1][columns - 1] = true;
 
-	<script>
-		let rows = parseInt(document.getElementById("heightIn").value);
-		let columns = parseInt(document.getElementById("widthIn").value);
-		let maze = new Array(rows);
-		let mazecells = new Array(rows);
-		for (let i = 0; i < rows; i++) {
+function getPlayerColour() {
+	return document.getElementById("colourInputStartid").value;
+}
+
+function getPathColour() {
+	return document.getElementById("colourInputPathid").value;
+}
+
+function getWallColour() {
+	return document.getElementById("colourInputWallid").value;
+}
+
+function isRedCell(x, y) {
+	return mazecells[x][y].classList.contains("wall");
+}
+let h = document.getElementsByTagName("body").height;
+
+function regenerateMaze() {
+	generateMaze(1, 1);
+	let widthInput = document.getElementById("widthIn");
+	let heightInput = document.getElementById("heightIn");
+	let newWidth = parseInt(widthInput.value);
+	let newHeight = parseInt(heightInput.value);
+	if (!isValidOdd(newWidth) || !isValidOdd(newHeight)) {
+		alert("Please enter valid odd numbers for width and height.");
+		return;
+	}
+	rows = newHeight;
+	columns = newWidth;
+	maze = new Array(rows);
+	for (let i = 0; i < rows; i++) {
+		for (let j = 0; j <= columns; j++) {
 			maze[i] = new Array(columns).fill(false);
 			mazecells[i] = maze[i];
 		}
-
-		function isValid(x, y) {
-			return x >= 0 && x < rows && y >= 0 && y < columns;
-		}
-
-		function generateMaze(x, y) {
-			maze[x][y] = true;
-			const directions = [
-				[-2, 0],
-				[2, 0],
-				[0, -2],
-				[0, 2]
-			];
-			directions.sort(() => Math.random() - 0.5);
-			for (const [dx, dy] of directions) {
-				const newX = x + dx;
-				const newY = y + dy;
-				if (isValid(newX, newY) && !maze[newX][newY]) {
-					maze[x + dx / 2][y + dy / 2] = true;
-					generateMaze(newX, newY);
-				}
+	}
+	let grid = document.getElementById("grid");
+	grid.innerHTML = "";
+	grid.style.gridTemplateColumns = `repeat(${columns}, calc( 90vw / ${columns} ))`;
+	grid.style.gridTemplateRows = `repeat(${rows}, calc( 95vh / ${rows} ))`;
+	generateMaze(1, 1);
+	maze[rows - 2][columns - 2] = true;
+	let plyrClr = getPlayerColour();
+	let pthClr = getPathColour();
+	let wllClr = getWallColour();
+	for (let i = 0; i < rows; i++) {
+		for (let j = 0; j < columns; j++) {
+			let cell = document.createElement("div");
+			if (i == 1 && j == 1) {
+				cell.className = "grid-item start-cell";
+				cell.style.backgroundColor = plyrClr;
+			} else if (i == rows - 2 && j == columns - 2) {
+				cell.className = "grid-item end-cell";
+			} else if (maze[i][j]) {
+				cell.className = "grid-item maze-path";
+				cell.style.backgroundColor = pthClr;
+			} else {
+				cell.className = "grid-item wall";
+				cell.style.backgroundColor = wllClr;
 			}
+			grid.appendChild(cell);
+			mazecells[i][j] = cell;
 		}
-		generateMaze(1, 1);
-		maze[rows - 2][columns - 2] = true;
+	}
+}
 
-		function getPlayerColour() {
-			return document.getElementById("colourInputStartid").value;
+function isValidOdd(num) {
+	return num % 2 === 1;
+}
+let currentX = 1;
+let currentY = 1;
+window.onload = function () {
+	let grid = document.getElementById("grid");
+	grid.style.gridTemplateColumns = `repeat(${columns}, calc( 95vw / ${columns} ))`;
+	grid.style.gridTemplateRows = `repeat(${rows}, calc( 95vh / ${rows} ))`;
+	for (let i = 0; i < rows; i++) {
+		for (let j = 0; j < columns; j++) {
+			let cell = document.createElement("div");
+			if (i === 1 && j === 1) {
+				cell.className = "grid-item start-cell";
+			} else if (i === rows - 2 && j === columns - 2) {
+				cell.className = "grid-item end-cell";
+			} else if (maze[i][j]) {
+				cell.className = "grid-item maze-path";
+			} else {
+				cell.className = "grid-item wall";
+			}
+			grid.appendChild(cell);
+			mazecells[i][j] = cell;
 		}
+	}
+	currentY = 1;
+	currentX = 1;
+	regenerateMaze();
 
-		function getPathColour() {
-			return document.getElementById("colourInputPathid").value;
-		}
-
-		function getWallColour() {
-			return document.getElementById("colourInputWallid").value;
-		}
-
-		function isRedCell(x, y) {
-			return mazecells[x][y].classList.contains("wall");
-		}
-		const h = document.getElementsByTagName("body").height;
-
-		function regenerateMaze() {
-			generateMaze(1,1);
-			const widthInput = document.getElementById("widthIn");
-			const heightInput = document.getElementById("heightIn");
-			const newWidth = parseInt(widthInput.value);
-			const newHeight = parseInt(heightInput.value);
-			if (!isValidOdd(newWidth) || !isValidOdd(newHeight)) {
-				alert("Please enter valid odd numbers for width and height.");
+	function moveCell(event) {
+		let newX = currentX;
+		let newY = currentY;
+		switch (event.key) {
+			case "ArrowUp":
+				newX--;
+				break;
+			case "ArrowDown":
+				newX++;
+				break;
+			case "ArrowLeft":
+				newY--;
+				break;
+			case "ArrowRight":
+				newY++;
+				break;
+			default:
 				return;
-			}
-			rows = newHeight;
-			columns = newWidth;
-			maze = new Array(rows);
-			for (let i = 0; i < rows; i++) {
-				maze[i] = new Array(columns).fill(false);
-				mazecells[i] = maze[i];
-			}
-			let grid = document.getElementById("grid");
-			grid.innerHTML = "";
-			grid.style.gridTemplateColumns = `repeat(${columns}, calc( 90vw / ${columns} ))`;
-			grid.style.gridTemplateRows = `repeat(${rows}, calc( 95vh / ${rows} ))`;
-			generateMaze(1, 1);
-			maze[rows - 2][columns - 2] = true;
-			const plyrClr = getPlayerColour();
-			const pthClr = getPathColour();
-			const wllClr = getWallColour();
-			for (let i = 0; i < rows; i++) {
-				for (let j = 0; j < columns; j++) {
-					const cell = document.createElement("div");
-					if (i === 1 && j === 1) {
-						cell.className = "grid-item start-cell";
-						cell.style.backgroundColor = plyrClr;
-					} else if (i === rows - 2 && j === columns - 2) {
-						cell.className = "grid-item end-cell";
-					} else if (maze[i][j]) {
-						cell.className = "grid-item maze-path";
-						cell.style.backgroundColor = pthClr;
-					} else {
-						cell.className = "grid-item wall";
-						cell.style.backgroundColor = wllClr;
-					}
-					grid.appendChild(cell);
-					mazecells[i][j] = cell;
-				}
-			}
 		}
-
-		function isValidOdd(num) {
-			return num % 2 === 1;
-		}
-		let currentX = 1;
-		let currentY = 1;
-		window.onload = function() {
-			const grid = document.getElementById("grid");
-			grid.style.gridTemplateColumns = `repeat(${columns}, calc( 95vw / ${columns} ))`;
-			grid.style.gridTemplateRows = `repeat(${rows}, calc( 95vh / ${rows} ))`;
-			for (let i = 0; i < rows; i++) {
-				for (let j = 0; j < columns; j++) {
-					const cell = document.createElement("div");
-					if (i === 1 && j === 1) {
-						cell.className = "grid-item start-cell";
-					} else if (i === rows - 2 && j === columns - 2) {
-						cell.className = "grid-item end-cell";
-					} else if (maze[i][j]) {
-						cell.className = "grid-item maze-path";
-					} else {
-						cell.className = "grid-item wall";
-					}
-					grid.appendChild(cell);
-					mazecells[i][j] = cell;
-				}
+		if (isValid(newX, newY) && maze[newX][newY] && !isRedCell(newX, newY)) {
+			if (mazecells[newX][newY].classList.contains("end-cell")) {
+				arrivedAtDestination(newX, newY);
 			}
-			currentY = 1;
-			currentX = 1;
-			regenerateMaze();
+			if (maze[newX][newY].classList.contains("start-cell")) {
+				maze[newX][newY].classList.remove("start-cell");
 
-			function moveCell(event) {
-				let newX = currentX;
-				let newY = currentY;
-				switch (event.key) {
-					case "ArrowUp":
-						newX--;
-						break;
-					case "ArrowDown":
-						newX++;
-						break;
-					case "ArrowLeft":
-						newY--;
-						break;
-					case "ArrowRight":
-						newY++;
-						break;
-					default:
-						return;
-				}
-				if (isValid(newX, newY) && maze[newX][newY] && !isRedCell(newX, newY)) {
-					if (mazecells[newX][newY].classList.contains("end-cell")) {
-						arrivedAtDestination(newX, newY);
-					}
-					mazecells[currentX][currentY].classList.remove("start-cell");
-					mazecells[currentX][currentY].classList.add("maze-path");
-					const ncell = mazecells[currentX][currentY];
-					currentX = newX;
-					currentY = newY;
-					mazecells[newX][newY].classList.remove("maze-path");
-					mazecells[newX][newY].classList.add("start-cell");
-					const ccell = mazecells[newX][newY];
-					const goBack = document.getElementById("goBackInput");
-					if (goBack.checked) {
-						const pc = getPlayerColour();
-						ccell.style.backgroundColor = pc;
-					} else {
-						const wc = getWallColour();
-						const pc = getPlayerColour();
-						ccell.style.backgroundColor = pc;
-						ncell.style.backgroundColor = wc;
-						ncell.classList.remove("start-cell");
-						ncell.classList.add("wall");
-						ccell.classList.remove("maze-path");
-						ccell.classList.add("end-cell");
-					}
-				}
+				mazecells[currentX][currentY].classList.add("maze-path");
 			}
-			window.addEventListener("keydown", moveCell);
-			const colorInputStart = document.getElementById("colourInputStartid");
-			colorInputStart.addEventListener("input", function() {
-				const selectedColor = colorInputStart.value;
-				const startCell = document.querySelector(".start-cell");
-				startCell.style.backgroundColor = selectedColor;
-			});
-			const colorInputEnd = document.getElementById("colourInputEndid");
-			colorInputEnd.addEventListener("input", function() {
-				const selectedEndColor = colorInputEnd.value;
-				const endCell = document.querySelector(".end-cell");
-				endCell.style.backgroundColor = selectedEndColor;
-			});
-			const colorInputPath = document.getElementById("colourInputPathid");
-			colorInputPath.addEventListener("input", function() {
-				const selectedPathColor = colorInputPath.value;
-				for (let i = 0; i < mazecells.length; i++) {
-					for (let j = 0; j < mazecells[i].length; j++) {
-						const item = mazecells[i][j];
-						if (item.classList.contains("maze-path")) {
-							item.style.backgroundColor = selectedPathColor;
-						}
-					}
-				}
-			});
-			const colorInputWall = document.getElementById("colourInputWallid");
-			colorInputWall.addEventListener("input", function() {
-				const selectedWallColor = colorInputWall.value;
-				for (let i = 0; i < mazecells.length; i++) {
-					for (let j = 0; j < mazecells[i].length; j++) {
-						const item = mazecells[i][j];
-						if (item.classList.contains("wall")) {
-							item.style.backgroundColor = selectedWallColor;
-						}
-					}
-				}
-			});
-		};
-
-		function infoDivClick() {
-			const infoDiv = document.getElementById("infoDiv1");
-			infoDiv.hidden = !infoDiv.hidden;
-		}
-		const infobutton = document.getElementById("infoDivButton");
-		const container = document.getElementById("infobuttontooltip");
-		const tooltip = document.createElement("span");
-		tooltip.classList.add("tooltip");
-		tooltip.style.display = "none";
-		tooltip.innerText = "Click for\nInstructions";
-		container.appendChild(tooltip);
-		infobutton.addEventListener("mouseover", () => {
-			tooltip.style.display = "block";
-			tooltip.style.fontSize = "10";
-		});
-		infobutton.addEventListener("mouseout", () => {
-			tooltip.style.display = "none";
-		});
-		const regenbutton = document.getElementById("refreshButton");
-		const container2 = document.getElementById("regenbuttontooltip");
-		const tooltip2 = document.createElement("span");
-		tooltip2.classList.add("tooltip2");
-		tooltip2.style.display = "none";
-		tooltip2.innerText = "Click to\nRegenerate";
-		regenbutton.addEventListener("mouseover", () => {
-			tooltip2.style.display = "block";
-		});
-		regenbutton.addEventListener("mouseout", () => {
-			tooltip2.style.display = "none";
-		});
-
-		function arrivedAtDestination(newX, newY) {
-			const ccell = mazecells[newX][newY];
+			let ncell = mazecells[currentX][currentY];
+			let oldX = currentX;
+			let oldY = currentY;
+			currentX = newX;
+			currentY = newY;
+			mazecells[newX][newY].classList.remove("maze-path");
+			mazecells[newX][newY].classList.add("start-cell");
+			let ccell = mazecells[newX][newY];
 			const goBack = document.getElementById("goBackInput");
 			if (goBack.checked) {
-				ccell.style.color = "green";
+				let pc = getPlayerColour();
+				ccell.style.backgroundColor = pc;
 			} else {
-				const wc = getWallColour();
-				ccell.style.backgroundColor = wc;
-				const widthInput = document.getElementById("widthIn");
-				const heightInput = document.getElementById("heightIn");
-				if (isValidOdd(heightInput.value * 1.25 - ((heightInput.value * 1.25) % 2))) {
-					heightInput.value = heightInput.value * 1.25 - ((heightInput.value * 1.25) % 2);
-				} else {
-					heightInput.value = heightInput.value * 1.25 - ((heightInput.value * 1.25) % 2) + 1;
-				}
-				if (isValidOdd(widthInput.value * 1.25 - ((widthInput.value * 1.25) % 2))) {
-					widthInput.value = widthInput.value * 1.25 - ((widthInput.value * 1.25) % 2);
-				} else {
-					widthInput.value = widthInput.value * 1.25 - ((widthInput.value * 1.25) % 2) + 1;
-				}
-				let starts = document.getElementsByClassName("grid-item start-cell");
-				for (let i = 0; i < starts.length; i++) {
-					starts[i].classList.remove("start-cell");
-				}
-				// Remove the player and end cell
-				mazecells[currentX][currentY].style.backgroundColor = "";
-				mazecells[currentX][currentY].classList.remove("start-cell");
-				// Regenerate the maze
-				regenerateMaze();
-				// Set new destination and start positions
-				const newStartX = rows - 2;
-				const newStartY = columns - 2;
-				const newEndX = 1;
-				const newEndY = 1;
-				mazecells[newStartX][newStartY].classList.remove("end-cell");
-				mazecells[newStartX][newStartY].classList.add("start-cell");
-				mazecells[newEndX][newEndY].classList.remove("wall");
-				mazecells[newEndX][newEndY].classList.remove("end-cell");
-				mazecells[newEndX][newEndY].classList.add("start-cell");
-				mazecells[newEndX][newEndY].style.backgroundColor = getPlayerColour();
-				currentX = newEndX;
-				currentY = newEndY;
-				mazecells[1][1].style.backgroundColor = "orange";
+				let ncell = mazecells[oldX][oldY];
+				let wc = getWallColour();
+				let pc = getPlayerColour();
+				ccell.style.backgroundColor = pc;
+				ncell.style.backgroundColor = wc;
+				ncell.classList.remove("start-cell");
+				ncell.classList.add("wall");
+				ccell.classList.remove("maze-path");
+				ccell.classList.add("end-cell");
 			}
 		}
-
-		function backlockcheck() {
-			let txt = document.getElementById("lockback");
-			if (txt.textContent == "Lock") {
-				txt.textContent = "Unlock 🔙";
-			} else {
-				txt.textContent = "Lock";
+	}
+	window.addEventListener("keydown", moveCell);
+	let colorInputStart = document.getElementById("colourInputStartid");
+	colorInputStart.addEventListener("input", function () {
+		let selectedColor = colorInputStart.value;
+		let startCell = document.querySelector(".start-cell");
+		startCell.style.backgroundColor = selectedColor;
+	});
+	let colorInputEnd = document.getElementById("colourInputEndid");
+	colorInputEnd.addEventListener("input", function () {
+		let selectedEndColor = colorInputEnd.value;
+		let endCell = document.querySelector(".end-cell");
+		endCell.style.backgroundColor = selectedEndColor;
+	});
+	let colorInputPath = document.getElementById("colourInputPathid");
+	colorInputPath.addEventListener("input", function () {
+		let selectedPathColor = colorInputPath.value;
+		for (let i = 0; i < mazecells.length; i++) {
+			for (let j = 0; j < mazecells[i].length; j++) {
+				let item = mazecells[i][j];
+				if (item.classList.contains("maze-path")) {
+					item.style.backgroundColor = selectedPathColor;
+				}
 			}
 		}
-	</script>
-</div>
+	});
+	let colorInputWall = document.getElementById("colourInputWallid");
+	colorInputWall.addEventListener("input", function () {
+		const selectedWallColor = colorInputWall.value;
+		for (let i = 0; i < mazecells.length; i++) {
+			for (let j = 0; j < mazecells[i].length; j++) {
+				let item = mazecells[i][j];
+				if (item.classList.contains("wall")) {
+					item.style.backgroundColor = selectedWallColor;
+				}
+			}
+		}
+	});
+};
 
-</html>
+function infoDivClick() {
+	const infoDiv = document.getElementById("infoDiv1");
+	infoDiv.hidden = !infoDiv.hidden;
+}
+const infobutton = document.getElementById("infoDivButton");
+const container = document.getElementById("infobuttontooltip");
+const tooltip = document.createElement("span");
+tooltip.classList.add("tooltip");
+tooltip.style.display = "none";
+tooltip.innerText = "Click for\nInstructions";
+container.appendChild(tooltip);
+infobutton.addEventListener("mouseover", () => {
+	tooltip.style.display = "block";
+	tooltip.style.fontSize = "10";
+});
+infobutton.addEventListener("mouseout", () => {
+	tooltip.style.display = "none";
+});
+const regenbutton = document.getElementById("refreshButton");
+const container2 = document.getElementById("regenbuttontooltip");
+const tooltip2 = document.createElement("span");
+tooltip2.classList.add("tooltip2");
+tooltip2.style.display = "none";
+tooltip2.innerText = "Click to\nRegenerate";
+regenbutton.addEventListener("mouseover", () => {
+	tooltip2.style.display = "block";
+});
+regenbutton.addEventListener("mouseout", () => {
+	tooltip2.style.display = "none";
+});
+
+function arrivedAtDestination(newX, newY) {
+	let ccell = mazecells[newX][newY];
+	const goBack = document.getElementById("goBackInput");
+	if (goBack.checked) {
+		ccell.style.color = "green";
+	} else {
+		let wc = getWallColour();
+		ccell.style.backgroundColor = wc;
+		let widthInput = document.getElementById("widthIn");
+		let heightInput = document.getElementById("heightIn");
+		if (isValidOdd(heightInput.value * 1.25 - ((heightInput.value * 1.25) % 2))) {
+			heightInput.value =
+				heightInput.value * 1.25 - ((heightInput.value * 1.25) % 2);
+		} else {
+			heightInput.value =
+				heightInput.value * 1.25 - ((heightInput.value * 1.25) % 2) + 1;
+		}
+		if (isValidOdd(widthInput.value * 1.25 - ((widthInput.value * 1.25) % 2))) {
+			widthInput.value = widthInput.value * 1.25 - ((widthInput.value * 1.25) % 2);
+		} else {
+			widthInput.value =
+				widthInput.value * 1.25 - ((widthInput.value * 1.25) % 2) + 1;
+		}
+		let starts = document.getElementsByClassName("grid-item start-cell");
+		for (let i = 0; i < starts.length; i++) {
+			starts[i].classList.remove("start-cell");
+		}
+		// Remove the player and end cell
+		ccell.classList.remove("start-cell");
+		ccell = "";
+		currentY = 1;
+		currentX = 1;
+		// Regenerate the maze
+		regenerateMaze();
+		// Set new destination and start positions
+		let newStartX = rows - 2;
+		let newStartY = columns - 2;
+		let newEndX = 1;
+		let newEndY = 1;
+		mazecells[1][1] = ccell;
+		mazecells[newStartX][newStartY].classList.remove("end-cell");
+		mazecells[newStartX][newStartY].classList.add("start-cell");
+		// mazecells[newEndX][newEndY].classList.remove("wall");
+		mazecells[newEndX][newEndY].classList.remove("end-cell");
+		mazecells[newEndX][newEndY].classList.add("start-cell");
+		mazecells[newEndX][newEndY].style.backgroundColor = getPlayerColour();
+		currentX = newEndX;
+		currentY = newEndY;
+		mazecells[1][1].style.backgroundColor = "orange";
+	}
+}
+
+function backlockcheck() {
+	let txt = document.getElementById("lockback");
+	if (txt.textContent == "Lock") {
+		txt.textContent = "Unlock 🔙";
+	} else {
+		txt.textContent = "Lock";
+	}
+}
