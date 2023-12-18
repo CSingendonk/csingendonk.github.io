@@ -100,14 +100,13 @@
 			box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 			column-span: all;
 			width: 100%;
-			max-width: 100vw;
+			max-width: 95vw;
 			margin: 0 auto;
 			margin-top: 10%;
-			/* Center the table */
 		}
 
 		table {
-			width: 100vw;
+			width: 95vw;
 			column-span: all;
 			border-collapse: collapse;
 		}
@@ -127,7 +126,6 @@
 		tr {
 			transition: transform 0.2s ease;
 			background-color: transparent;
-			transform: scale(0.95);
 		}
 
 		tr:hover {
@@ -145,18 +143,16 @@
 <body>
 	<header>
 		<nav name="navi">
-			<a href="#projects">Projects</a>
-			<a href="#html">HTML Reference</a>
-			<a href="#css" onclick="navtocss">CSS Reference</a>
-			<a href="#javascript">JavaScript Reference</a>
-			<a href="#resume">Resume</a>
+			<a href="/index.html">HOME</a>
+			<a href="/htmlref/markupsheet.html">HTML REFERENCE</a>
+			<a href="/seaessess.html">CSS REFERENCE</a>
+			<a href="/mazeplaceholder/mazepg.html">HOBBIES</a>
+			<a href="#resume">?????</a>
+
 		</nav>
 		<span name="searchbar" id="searchinputs">
 			<input type="text" id="searchInput" placeholder="Type to search">
-			<button onclick="searchAndHighlight()">Search</button>
-			<select id="searchResults"></select>
-			<input type="checkbox" style="color:white" onclick="makePreviewBox()" id="prvwchkbx">
-			<label for="prvwchkbx" style="color: white;">Preview Box</label>
+			<button onclick="searchAndHighlight()">Highlight</button>
 			</input>
 		</span>
 	</header>
