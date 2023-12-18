@@ -70,7 +70,6 @@
                     <td>font-size</td>
                     <td>Sets the size of the font</td>
                 </tr>
-                <!-- Add more rows as needed -->
             </tbody>
         </table>
     </div>
@@ -80,7 +79,11 @@
 		box-sizing: border-box;
 	}
 
-	:root {}
+	:root { 
+	      --scalevalueX: 1;
+	      --scalevalueY: 1;
+		--scalevalueXY: 1;
+	      }
 
 	#searchInput {
 		padding: 0.1%;
@@ -89,7 +92,6 @@
 
 	#tableContainer {
 		max-height: 80vh;
-		/* Adjust the maximum height as needed */
 		min-width: 90vw;
 		margin-left: 5vw;
 		margin-right: 5vw;
