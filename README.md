@@ -1,7 +1,7 @@
 # MySite (nasty Hobbits's can't have it!)
 This is for my Final Project in Mr. Dorsey's TECH1101 class.
 Satire, sarcasm, and other such nonsense has been kept to a minimum, although what is life if we cannot laugh here and there especially at oneself.
-For more completed works of mine from class check out my codepen at:
+For more completed works of mine from class and elsewhere check out my codepen at:
 https://codepen.io/Cps93139
 
 As well as my first foreys into script and code with the game modes and customizations for Relic's Age of EmpiresIV, compiled with EssenceEngine5, written in SCAR, C++, LUA, and XAML/XML at:
