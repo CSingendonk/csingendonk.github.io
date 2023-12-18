@@ -157,7 +157,10 @@
 		</nav>
 		<span name="searchbar" id="searchinputs">
 			<input type="text" id="searchInput" placeholder="Type to search">
-			<button onclick="searchAndHighlight()">Highlight</button>
+			<button onclick="searchAndHighlight()">Search</button>
+			<select hidden id="searchResults"></select>
+			<input hidden type="checkbox" style="color:white" onclick="makePreviewBox()" id="prvwchkbx">
+			<label hidden for="prvwchkbx" style="color: white;">Preview Box</label>
 			</input>
 		</span>
 	</header>
