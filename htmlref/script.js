@@ -157,6 +157,7 @@
 		table.id = "tableOtags";
 	}
 
+// This function is responsible for searching and highlighting
 function searchAndHighlight() {
     var searchQuery = document.getElementById("searchInput").value.toLowerCase();
     var table = document.getElementById("tableOtags");
@@ -179,41 +180,29 @@ function searchAndHighlight() {
             }
         }
     }
-    // Only set up the event listener once
-    scrolltorow(rows);
 }
 
-function scrolltorow(rows) {
-    // Get references to the select element and the table
+// This function handles scrolling to the selected row
+function scrollToSelectedRow() {
     const mySelect = document.getElementById("searchResults");
-    const myTable = document.getElementById("tableOtags");
+    const rows = document.getElementById("tableOtags").getElementsByTagName("tr");
 
-    // Clear previous event listeners
-    mySelect.removeEventListener("click", scrollToSelectedRow);
+    const selectedValue = mySelect.value;
+    let rowIndex = Array.from(rows).findIndex((row) => row.textContent.includes(selectedValue));
 
-    // Attach an event listener to the select element
-    mySelect.addEventListener("click", scrollToSelectedRow);
-
-    function scrollToSelectedRow() {
-        // Get the selected option value
-        const selectedValue = mySelect.value;
-
-        // Find the corresponding row in the table
-        let rowIndex = Array.from(rows).findIndex((row) =>
-            row.textContent.includes(selectedValue)
-        );
-
-        // Scroll to or highlight the selected row
-        if (rowIndex !== -1) {
-            if (rowIndex <= 4) {
-                rowIndex = rowIndex + 3;
-            }
-            rows[rowIndex - 3].scrollIntoView();
-            resetTableStyles();
-            rows[rowIndex].style.backgroundColor = "yellow";
+    if (rowIndex !== -1) {
+        if (rowIndex <= 4) {
+            rowIndex = rowIndex + 3;
         }
+        rows[rowIndex - 3].scrollIntoView({ behavior: 'smooth' }); // Smooth scrolling
+        resetTableStyles();
+        rows[rowIndex].style.backgroundColor = "yellow";
     }
 }
+
+// Attach the event listener outside the search function
+const mySelect = document.getElementById("searchResults");
+mySelect.addEventListener("click", scrollToSelectedRow);
 
 function resetTableStyles() {
     // Reset table styles here
