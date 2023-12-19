@@ -19,10 +19,10 @@
 		</nav>
 
 	</header>
-	<span name="searchbar" id="searchinputs">
+	<span name="searchbar" id="searchinputs" >
 		<input type="text" id="searchInput" placeholder="Type to search keywords">
 		<button onclick="searchAndHighlight()">Search</button>
-		<select id="searchResults">
+		<select id="searchResults" onclick="scrolltorow(searchResults.value)">
 		</select>
 		<input type="checkbox" style="color:white" onclick="makePreviewBox()" id="prvwchkbx"><label for="prvwchkbx" style="color: white;">Preview Box</label></input>
 	</span>
