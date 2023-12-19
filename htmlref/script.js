@@ -183,26 +183,29 @@ function searchAndHighlight() {
 
     // Clear previous event listeners
     const mySelect = document.getElementById("searchResults");
-    mySelect.removeEventListener("change", scrollToSelectedRow);
+    mySelect.removeEventListener("mousedown", scrollToSelectedRow);
 
     // Attach an event listener to the select element
-    mySelect.addEventListener("change", scrollToSelectedRow);
+    mySelect.addEventListener("mousedown", scrollToSelectedRow);
 }
 
 function scrollToSelectedRow() {
     const mySelect = document.getElementById("searchResults");
     const rows = document.getElementById("tableOtags").getElementsByTagName("tr");
 
-    const selectedValue = mySelect.value;
-    let rowIndex = Array.from(rows).findIndex((row) => row.textContent.includes(selectedValue));
+    // Check if the option is selected (not just clicked)
+    if (mySelect.selectedIndex !== -1) {
+        const selectedValue = mySelect.options[mySelect.selectedIndex].value;
+        let rowIndex = Array.from(rows).findIndex((row) => row.textContent.includes(selectedValue));
 
-    if (rowIndex !== -1) {
-        if (rowIndex <= 4) {
-            rowIndex = rowIndex + 3;
+        if (rowIndex !== -1) {
+            if (rowIndex <= 4) {
+                rowIndex = rowIndex + 3;
+            }
+            rows[rowIndex - 3].scrollIntoView({ behavior: 'smooth' });
+            resetTableStyles();
+            rows[rowIndex].style.backgroundColor = "yellow";
         }
-        rows[rowIndex - 3].scrollIntoView({ behavior: 'smooth' });
-        resetTableStyles();
-        rows[rowIndex].style.backgroundColor = "yellow";
     }
 }
 
