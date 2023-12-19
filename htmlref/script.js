@@ -157,63 +157,75 @@
 		table.id = "tableOtags";
 	}
 
-	function searchAndHighlight() {
-		var searchQuery = document.getElementById("searchInput").value.toLowerCase();
-		var table = document.getElementById("tableOtags");
-		var rows = table.getElementsByTagName("tr");
-		var searchResults = document.getElementById("searchResults");
-		searchResults.innerHTML = "";
-		// Reset table styles
-		for (var i = 0; i < rows.length; i++) {
-			var cells = rows[i].getElementsByTagName("td");
-			for (var j = 0; j < cells.length; j++) {
-				var cellText = cells[j].textContent.toLowerCase();
-				rows[i].id = i;
-				if (cellText.includes(searchQuery)) {
-					// Highlight the cell
-					cells[j].style.backgroundColor = "yellow";
-					// Create a result entry
-					var resultEntry = document.createElement("option");
-					resultEntry.textContent = i + 1;
-					searchResults.appendChild(resultEntry);
-				}
-			}
-		}
-			scrolltorow(rows);
-		
-	}
+function searchAndHighlight() {
+    var searchQuery = document.getElementById("searchInput").value.toLowerCase();
+    var table = document.getElementById("tableOtags");
+    var rows = table.getElementsByTagName("tr");
+    var searchResults = document.getElementById("searchResults");
+    searchResults.innerHTML = "";
+    // Reset table styles
+    for (var i = 0; i < rows.length; i++) {
+        var cells = rows[i].getElementsByTagName("td");
+        for (var j = 0; j < cells.length; j++) {
+            var cellText = cells[j].textContent.toLowerCase();
+            rows[i].id = i;
+            if (cellText.includes(searchQuery)) {
+                // Highlight the cell
+                cells[j].style.backgroundColor = "yellow";
+                // Create a result entry
+                var resultEntry = document.createElement("option");
+                resultEntry.textContent = i + 1;
+                searchResults.appendChild(resultEntry);
+            }
+        }
+    }
+    // Only set up the event listener once
+    scrolltorow(rows);
+}
 
-	function scrolltorow(rows) {
-		// Get references to the select element and the table
-		const mySelect = document.getElementById("searchResults");
-		const myTable = document.getElementById("tableOtags");
-		// Attach an event listener to the select element
-		mySelect.addEventListener("click", function() {
-			// Get the selected option value
-			const selectedValue = mySelect.value;
-			// Find the corresponding row in the table
-			let rowIndex = Array.from(rows).findIndex((row) =>
-				row.textContent.includes(selectedValue)
-			);
-			// Scroll to or highlight the selected row
-			if (rowIndex !== -1) {
-				if (rowIndex <= 4) {
-					rowIndex = rowIndex + 3;
-				}
-				rows[rowIndex - 3].scrollIntoView();
-				let n = document.getElementsByTagName("td");
-				resetTableStyles();
-				rows[rowIndex].style.backgroundColor = "yellow";
-			}
-		});
-	}
+function scrolltorow(rows) {
+    // Get references to the select element and the table
+    const mySelect = document.getElementById("searchResults");
+    const myTable = document.getElementById("tableOtags");
 
-	function resetTableStyles() {
-		let n = document.getElementsByTagName("td");
-		for (let c = 0; c < n.length; c++) {
-			n[c].style.backgroundColor = "transparent";
-		}
-	}
+    // Clear previous event listeners
+    mySelect.removeEventListener("click", scrollToSelectedRow);
+
+    // Attach an event listener to the select element
+    mySelect.addEventListener("click", scrollToSelectedRow);
+
+    function scrollToSelectedRow() {
+        // Get the selected option value
+        const selectedValue = mySelect.value;
+
+        // Find the corresponding row in the table
+        let rowIndex = Array.from(rows).findIndex((row) =>
+            row.textContent.includes(selectedValue)
+        );
+
+        // Scroll to or highlight the selected row
+        if (rowIndex !== -1) {
+            if (rowIndex <= 4) {
+                rowIndex = rowIndex + 3;
+            }
+            rows[rowIndex - 3].scrollIntoView();
+            resetTableStyles();
+            rows[rowIndex].style.backgroundColor = "yellow";
+        }
+    }
+}
+
+function resetTableStyles() {
+    // Reset table styles here
+    var rows = document.getElementById("tableOtags").getElementsByTagName("tr");
+    for (var i = 0; i < rows.length; i++) {
+        var cells = rows[i].getElementsByTagName("td");
+        for (var j = 0; j < cells.length; j++) {
+            cells[j].style.backgroundColor = "";
+        }
+    }
+}
+
 	let text = `Tag
 Description
 
