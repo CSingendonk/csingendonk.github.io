@@ -178,8 +178,9 @@
 					searchResults.appendChild(resultEntry);
 				}
 			}
-			scrolltorow(rows);
 		}
+			scrolltorow(rows);
+		
 	}
 
 	function scrolltorow(rows) {
