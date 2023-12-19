@@ -157,13 +157,13 @@
 		table.id = "tableOtags";
 	}
 
-// This function is responsible for searching and highlighting
 function searchAndHighlight() {
     var searchQuery = document.getElementById("searchInput").value.toLowerCase();
     var table = document.getElementById("tableOtags");
     var rows = table.getElementsByTagName("tr");
     var searchResults = document.getElementById("searchResults");
     searchResults.innerHTML = "";
+
     // Reset table styles
     for (var i = 0; i < rows.length; i++) {
         var cells = rows[i].getElementsByTagName("td");
@@ -180,9 +180,15 @@ function searchAndHighlight() {
             }
         }
     }
+
+    // Clear previous event listeners
+    const mySelect = document.getElementById("searchResults");
+    mySelect.removeEventListener("change", scrollToSelectedRow);
+
+    // Attach an event listener to the select element
+    mySelect.addEventListener("change", scrollToSelectedRow);
 }
 
-// This function handles scrolling to the selected row
 function scrollToSelectedRow() {
     const mySelect = document.getElementById("searchResults");
     const rows = document.getElementById("tableOtags").getElementsByTagName("tr");
@@ -194,18 +200,14 @@ function scrollToSelectedRow() {
         if (rowIndex <= 4) {
             rowIndex = rowIndex + 3;
         }
-        rows[rowIndex - 3].scrollIntoView({ behavior: 'smooth' }); // Smooth scrolling
+        rows[rowIndex - 3].scrollIntoView({ behavior: 'smooth' });
         resetTableStyles();
         rows[rowIndex].style.backgroundColor = "yellow";
     }
 }
 
-// Attach the event listener outside the search function
-const mySelect = document.getElementById("searchResults");
-mySelect.addEventListener("click", scrollToSelectedRow);
-
+// This function resets table styles
 function resetTableStyles() {
-    // Reset table styles here
     var rows = document.getElementById("tableOtags").getElementsByTagName("tr");
     for (var i = 0; i < rows.length; i++) {
         var cells = rows[i].getElementsByTagName("td");
@@ -214,7 +216,6 @@ function resetTableStyles() {
         }
     }
 }
-
 	let text = `Tag
 Description
 
